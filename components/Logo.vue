@@ -1,35 +1,89 @@
 <template>
-  <svg
-    class="NuxtLogo"
-    width="245"
-    height="180"
-    viewBox="0 0 452 342"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      d="M139 330l-1-2c-2-4-2-8-1-13H29L189 31l67 121 22-16-67-121c-1-2-9-14-22-14-6 0-15 2-22 15L5 303c-1 3-8 16-2 27 4 6 10 12 24 12h136c-14 0-21-6-24-12z"
-      fill="#00C58E"
-    />
-    <path
-      d="M447 304L317 70c-2-2-9-15-22-15-6 0-15 3-22 15l-17 28v54l39-67 129 230h-49a23 23 0 0 1-2 14l-1 1c-6 11-21 12-23 12h76c3 0 17-1 24-12 3-5 5-14-2-26z"
-      fill="#108775"
-    />
-    <path
-      d="M376 330v-1l1-2c1-4 2-8 1-12l-4-12-102-178-15-27h-1l-15 27-102 178-4 12a24 24 0 0 0 2 15c4 6 10 12 24 12h190c3 0 18-1 25-12zM256 152l93 163H163l93-163z"
-      fill="#2F495E"
-    />
-  </svg>
+  <div class="logo-container flex-box flex-box__inline flex-box__center">
+    <svg class="logo-svg" :class="{fill, stroke}" width="74" height="75" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g filter="url(#filter0_d)">
+        <path d="M48 30H26V10.4762L33.8003 2.6936C35.3117 1.18563 37.7409 1.13046 39.3192 2.56824L48 10.4762V30Z" />
+        <path d="M26 38H48L48 57.5238L40.1997 65.3064C38.6883 66.8144 36.2591 66.8695 34.6808 65.4318L26 57.5238L26 38Z" />
+        <path d="M18 19V49L5.82843 36.8284C4.26633 35.2663 4.26633 32.7337 5.82843 31.1716L18 19Z" />
+        <path d="M56 49V19L68.1716 31.1716C69.7337 32.7337 69.7337 35.2663 68.1716 36.8284L56 49Z" />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d"
+          x="0.65686"
+          y="1.52522"
+          width="72.6863"
+          height="72.9495"
+          filterUnits="userSpaceOnUse"
+          color-interpolation-filters="sRGB"
+        >
+          <feFlood flood-opacity="0" result="BackgroundImageFix" />
+          <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="2" />
+          <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0" />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape" />
+        </filter>
+      </defs>
+    </svg>
+    <img v-if="showText" class="logo-text" :src="require('../assets/images/logo_text__dark.png')" alt="logo_text">
+  </div>
 </template>
-
-<style>
-.NuxtLogo {
-  animation: 1s appear;
-  margin: auto;
+<script>
+export default {
+  props: {
+    showText: {
+      type: Boolean,
+      default: true,
+    },
+    fill: {
+      type: Boolean,
+      default: true
+    },
+    stroke: {
+      type: Boolean,
+      default: false
+    }
+  },
+  mounted() {
+    this.animeSvg()
+  },
+  methods: {
+    animeSvg() {
+      this.$anime({
+        targets: '.logo-h-line',
+        opacity: [0, 1],
+        duration: 5 * 1000,
+        delay: (el, i) => i * 250,
+      })
+    },
+  },
 }
-
-@keyframes appear {
-  0% {
-    opacity: 0;
+</script>
+<style lang="scss" scoped>
+$logo-size: 40px;
+.logo-container {
+  user-select: none;
+  height: $logo-size;
+  line-height: $logo-size;
+  .logo-svg {
+    width: $logo-size;
+    height: $logo-size;
+    margin-right: $logo-size / 10;
+    &.fill {
+      g > path {
+        fill: $color-primary;
+      }
+    }
+    &.stroke {
+      g > path {
+        stroke: $color-primary;
+      }
+    }
+  }
+  .logo-text {
+    height: $logo-size * 0.6;
   }
 }
 </style>
