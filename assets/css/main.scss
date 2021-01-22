@@ -39,3 +39,11 @@ html {
     align-items: center;
   }
 }
+
+.clickable {
+  cursor: pointer;
+}
+
+.dis-select {
+  user-select: none;
+}

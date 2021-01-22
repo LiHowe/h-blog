@@ -1,24 +1,51 @@
 <template>
-  <div class="header-container">
-    <Logo />
-    <theme-switcher />
-  </div>
+  <nav class="layout-header">
+    <div class="header-content flex-box dis-select">
+      <Logo />
+      <div class="action-area flex-box">
+        <Nav />
+        <theme-switcher class="action-item" />
+        <lang-switcher class="action-item" />
+      </div>
+    </div>
+  </nav>
 </template>
 <script>
 import Logo from '@/components/Logo'
 import ThemeSwitcher from '@/components/ThemeSwitcher'
+import LangSwitcher from '@/components/LangSwitcher'
+import Nav from './Nav'
+
 export default {
   name: 'Header',
   components: {
     Logo,
     ThemeSwitcher,
+    LangSwitcher,
+    Nav,
   },
 }
 </script>
-<style
-    ThemeSwitcher lang="scss" scoped>
-.header-container {
+<style lang="scss" scoped>
+.layout-header {
+  position: relative;
   height: $header-height;
-  padding: $header-height / 10;
+  width: 100%;
+  padding: $header-padding;
+  box-shadow: 0 0 4px #c4c4c4;
+  .header-content {
+    max-width: $content-max-width;
+    margin: auto;
+  }
+  .action{
+    &-area {
+      margin-left: auto;
+    }
+    &-item {
+      & +.action-item {
+        margin-left: $header-padding;
+      }
+    }
+  }
 }
 </style>

@@ -7,7 +7,7 @@
 export default {
   name: "ThemeSwitcher",
   data: () => ({
-    iconSize: 26,
+    iconSize: '26',
     mode: 0,
     modeList: ['sun', 'moon']
   }),
@@ -29,11 +29,12 @@ export default {
 }
 .theme-switcher {
   position: relative;
-  height: $header-height;
-  width: $header-height;
+  height: $header-height - (2 * $header-padding);
+  width: $header-height - (2 * $header-padding);
   display: inline-block;
   border-bottom: 2px solid black;
   cursor: pointer;
+  overflow: hidden;
   .switcher-icon {
     position: absolute;
     top: 0;

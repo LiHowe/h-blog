@@ -27,7 +27,7 @@
         </filter>
       </defs>
     </svg>
-    <img v-if="showText" class="logo-text" :src="require('../assets/images/logo_text__dark.png')" alt="logo_text">
+    <img v-if="showText" class="logo-text" src="/images/logo_text__dark.png" alt="logo_text">
   </div>
 </template>
 <script>
