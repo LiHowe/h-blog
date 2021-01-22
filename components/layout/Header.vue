@@ -11,19 +11,8 @@
   </nav>
 </template>
 <script>
-import Logo from '@/components/Logo'
-import ThemeSwitcher from '@/components/ThemeSwitcher'
-import LangSwitcher from '@/components/LangSwitcher'
-import Nav from './Nav'
-
 export default {
   name: 'Header',
-  components: {
-    Logo,
-    ThemeSwitcher,
-    LangSwitcher,
-    Nav,
-  },
 }
 </script>
 <style lang="scss" scoped>

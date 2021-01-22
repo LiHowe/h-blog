@@ -26,7 +26,7 @@ $size: $header-height - 2 * $header-padding;
   position: relative;
   height: $size;
   width: $size;
-  line-height: $size;
+  line-height: $size + 5px; // small position adjustment, 5px is perfect for display center
   text-align: center;
 }
 </style>

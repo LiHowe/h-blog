@@ -4,15 +4,11 @@
   </div>
 </template>
 <script>
-import ArticleCard from '@/components/ArticleCard'
 
 import article_en from '@/content/en'
 import article_zh from '@/content/zh'
 
 export default {
-  components: {
-    ArticleCard
-  },
   async asyncData({ app, $content, params, error }) {
     const asyncImport = async (name) => {
       const md = await import(`@/content/${app.i18n.locale}/articles/${name}.md`)
