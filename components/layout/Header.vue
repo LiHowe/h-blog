@@ -17,11 +17,11 @@ export default {
 </script>
 <style lang="scss" scoped>
 .layout-header {
-  position: relative;
+  position: sticky;
+  top: 0;
   height: $header-height;
   width: 100%;
   padding: $header-padding;
-  box-shadow: 0 0 4px #c4c4c4;
   .header-content {
     max-width: $content-max-width;
     margin: auto;

@@ -1,21 +1,10 @@
-// import Mode from 'frontmatter-markdown-loader/mode'
 const path = require('path')
-import MarkdownIt from 'markdown-it'
-import mip from 'markdown-it-prism'
-// const i18n = require('./locales/index')
 import i18n from './locales/index'
 import fs from 'fs'
-import Mode from "frontmatter-markdown-loader/mode"
-
-const md = new MarkdownIt({
-  html: true,
-  typographer: true,
-})
-md.use(mip)
 
 function getPaths (lang, type) {
   let initial = lang
-  if (lang === 'en') { initial = '' }
+  if (lang === 'zh') { initial = '' }
   return fs.readdirSync(path.resolve(__dirname, 'content', `${lang}/${type}`))
     .filter(filename => path.extname(filename) === '.md')
     .map(filename => `${initial}/${type}/${path.parse(filename).name}`)
@@ -47,7 +36,7 @@ export default {
   css: [
     'normalize.css/normalize.css',
     '@/assets/css/main.scss',
-    '@/assets/css/prism-material-light.css',
+    '@/assets/css/article.scss',
   ],
 
   styleResources: {
@@ -62,7 +51,7 @@ export default {
   },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
-  plugins: ['~/plugins/globalLib'],
+  plugins: ['~/plugins/globalLib', '~/plugins/lazyload'],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
@@ -87,29 +76,27 @@ export default {
   axios: {},
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
-  content: {},
+  content: {
+    markdown: {
+      prism: {
+        theme: 'prism-themes/themes/prism-material-oceanic.css'
+      }
+    }
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
     transpile: ['animejs'],
     extend (config) {
       const rule = config.module.rules.find(r => r.test.toString() === '/\\.(png|jpe?g|gif|svg|webp)$/i')
-      config.module.rules.splice(config.module.rules.indexOf(rule), 1)
+      config.module.rules.splice(config.module.rules.indexOf(rule), 1) // 移除默认url-loader, 为了responsive-loader
 
       config.module.rules.push({
-        test: /\.md$/,
-        loader: 'frontmatter-markdown-loader',
-        include: path.resolve(__dirname, 'content'),
-        options: {
-          mode: [Mode.VUE_COMPONENT]
-        }
-      }, {
-        test: /\.(jpe?g|png)$/i,
+        test: /\.(jpe?g|png|webp)$/i,
         loader: 'responsive-loader',
         options: {
           placeholder: true,
           quality: 60,
-          size: 1400,
           adapter: require('responsive-loader/sharp')
         }
       }, {

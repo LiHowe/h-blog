@@ -5,7 +5,6 @@
   >
     <img
       :data-src="imageRequired"
-      data-error="https://images.unsplash.com/photo-1611092312573-f3843ba1c540?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80"
       :data-loading="imageRequired.placeholder"
       :width="width"
       :height="height"
@@ -16,6 +15,7 @@
 </template>
 
 <script>
+// https://github.com/dazuaz/responsive-loader
 export default {
   props: {
     imageURL: {
@@ -44,8 +44,9 @@ export default {
   computed: {
     imageRequired () {
       try {
-        return require(`../assets/images/${this.imageURL}`)
+        return require(`@/assets/images/${this.imageURL}`)
       } catch (e) {
+        console.error(e)
         return null
       }
     },

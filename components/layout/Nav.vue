@@ -38,7 +38,7 @@ export default {
       transition: all .25s;
     }
     &:hover {
-      color: $color-blue-2;
+      color: $color-primary;
       &::after {
         transform: scaleY(1);
       }

@@ -1,11 +1,12 @@
 // Color
-$color-blue-1: #041b2d;
-$color-blue-2: #004e9a;
-$color-blue-3: #428cd4;
+$color-primary: #13547a;
+$color-primary-dark: darken($color-primary, 10%);
+$color-primary-light: lighten($color-primary, 10%);
+$color-primary-darker: darken($color-primary, 20%);
+$color-primary-lighter: lighten($color-primary, 20%);
+$color-secondary: #80d0c7;
 
 $color-text: #fff;
-
-$color-primary: $color-blue-1;
 
 $transition-duration: .35s;
 $transition-effect: ease;
@@ -13,7 +14,7 @@ $transition: all $transition-effect $transition-duration;
 
 $card-radius: 6px;
 
-$color-footer: $color-primary;
+$color-footer: $color-primary-darker;
 
 $header-height: 50px;
 $header-padding: $header-height / 10;

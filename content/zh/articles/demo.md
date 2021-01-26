@@ -1,8 +1,9 @@
 ---
-name: 哈哈
+title: 哈哈
+slug: demo
 description: 这是测试
 tag: [test, demo]
-createAt: 2021年1月21日 15点41分
+createdAt: 2021年1月21日 15点41分
 stick: false
 ---
 
@@ -17,4 +18,3 @@ stick: false
 const a = 'demo'
 console.log(a)
 ```
-s 

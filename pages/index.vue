@@ -1,21 +1,23 @@
 <template>
   <div class="container">
-    <article-card v-for="art in articleList" :key="art.name" :article="art" />
+    <article-card v-for="art in articles" :key="art.name" :article="art" />
   </div>
 </template>
 <script>
 
-import article_en from '@/content/en'
-import article_zh from '@/content/zh'
-
 export default {
   async asyncData({ app, $content, params, error }) {
-    const asyncImport = async (name) => {
-      const md = await import(`@/content/${app.i18n.locale}/articles/${name}.md`)
-      return md.attributes
+    const articles = await $content(`${app.i18n.locale}/articles`, params.slug)
+    .only(['title', 'tag', 'slug', 'description', 'createdAt', 'stick'])
+    .sortBy('createdAt')
+    .fetch()
+    .catch(_ => {
+      error({ statusCode: 404, message: 'Article not exist.' })
+    })
+
+    return {
+      articles
     }
-    const articles = app.i18n.locale === 'zh' ? article_zh : article_en
-    return Promise.all(articles.map(art => asyncImport(art))).then(res => ({ articleList: res }))
   }
 }
 </script>

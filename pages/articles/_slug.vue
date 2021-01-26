@@ -11,6 +11,11 @@ export default {
       error({ statusCode: 404, message: 'Page not found' })
     })
     return { article }
+  },
+  methods: {
+    created() {
+      console.log('enter _slug')
+    }
   }
 }
 </script>
