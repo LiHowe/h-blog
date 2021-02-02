@@ -1,12 +1,7 @@
-.nuxt-content {
-  .nuxt-content-highlight {
-    pre {
-      border-radius: 6px;
-      line-height: 16px;
-    }
-    code {
-      font-family: 'Source Sans Pro';
-      font-size: 14px;
-    }
+@import './prism.css';
+
+.article {
+  h1 {
+    text-align: center;
   }
 }

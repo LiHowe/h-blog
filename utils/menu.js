@@ -5,12 +5,12 @@ export const menuList = [
     zh: '主页',
     en: 'Home'
   },
-  {
-    title: 'article',
-    to: '/article',
-    zh: '文章列表',
-    en: 'Articles'
-  },
+  // {
+  //   title: 'article',
+  //   to: '/article',
+  //   zh: '文章列表',
+  //   en: 'Articles'
+  // },
   {
     title: 'aboutCode',
     to: '/code',

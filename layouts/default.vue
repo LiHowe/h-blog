@@ -1,6 +1,6 @@
 <template>
   <div class="layout">
-    <div class="page-bg"></div>
+    <div class="layout-bg"></div>
     <Header />
     <Nuxt class="layout-body" />
     <Footer />
@@ -24,19 +24,20 @@ export default {
   min-height: 100vh;
   position: relative;
   color: #fff;
-  .page-bg {
+  padding-bottom: $footer-height;
+  &-bg {
     position: absolute;
     top: 0;
     left: 0;
     background-size: cover;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);
+    z-index: -1;
   }
-}
-.layout-body {
-  padding: 10px;
-  margin: 0 auto;
-  max-width: $content-max-width;
+  &-body {
+    margin: $article-padding auto;
+    max-width: $content-max-width;
+  }
 }
 </style>

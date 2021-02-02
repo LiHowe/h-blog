@@ -2,19 +2,19 @@
   <div>
     <nuxt-link class="article-card flex-box" :class="`card-${mode}`" tag="div" :to="localePath({ name: 'articles-slug', params: { slug: article.slug }})">
       <div class="card-thumbnail">
-        <img class="card-thumbnail-img" src="https://images.unsplash.com/photo-1611092312573-f3843ba1c540?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=460&q=80" />
+        <img class="card-thumbnail-img" :src="article.img" />
       </div>
       <div class="card-info">
         <h2 class="card-title">
           {{ article.title }}
         </h2>
-        <h4 class="card-desc">
+        <p class="card-desc">
           {{ article.description }}
-        </h4>
+        </p>
         <div class="card-footer flex-box">
           <Tag class="card-tag" v-for="(tag, i) in article.tag" :key="tag + i" :text="tag" />
           <span class="card-create-time">
-            {{ article.createdAt }}
+            {{ createTime }}
           </span>
         </div>
       </div>
@@ -22,6 +22,8 @@
   </div>
 </template>
 <script>
+import day from 'dayjs'
+
 export default {
   name: 'ArticleCard',
   props: {
@@ -36,6 +38,11 @@ export default {
         return ['line', 'block'].includes(t)
       },
       default: 'line'
+    }
+  },
+  computed: {
+    createTime() {
+      return day(this.article.createAt).format('YYYY-MM-DD')
     }
   }
 }

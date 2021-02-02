@@ -8,7 +8,7 @@
 export default {
   async asyncData({ app, $content, params, error }) {
     const articles = await $content(`${app.i18n.locale}/articles`, params.slug)
-    .only(['title', 'tag', 'slug', 'description', 'createdAt', 'stick'])
+    // .only(['title', 'tag', 'slug', 'description', 'createdAt', 'stick', 'img']) // 筛选markdown属性
     .sortBy('createdAt')
     .fetch()
     .catch(_ => {
