@@ -5,12 +5,12 @@
         <img class="card-thumbnail-img" :src="article.img" />
       </div>
       <div class="card-info">
-        <h2 class="card-title">
+        <div class="card-title">
           {{ article.title }}
-        </h2>
-        <p class="card-desc">
+        </div>
+        <div class="card-desc">
           {{ article.description }}
-        </p>
+        </div>
         <div class="card-footer flex-box">
           <Tag class="card-tag" v-for="(tag, i) in article.tag" :key="tag + i" :text="tag" />
           <span class="card-create-time">
@@ -48,9 +48,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-$card-padding: 20px;
-$card-height: 150px;
+$card-padding: 0.85rem;
+$card-height: 7rem;
 $card-bg-color: #fff;
+$card-text-color: invert($card-bg-color, 70%);
 $thumbnail-size-rate: 0.9;
 $thumbnail-size: $card-height * $thumbnail-size-rate;
 .article-card {
@@ -61,8 +62,8 @@ $thumbnail-size: $card-height * $thumbnail-size-rate;
   margin: $card-padding 0 $card-padding $thumbnail-size / 2 ;
   background-color: rgba($card-bg-color, 0.7);
   color: invert($card-bg-color);
-  cursor: pointer;
   transition: all .25s;
+  cursor: pointer;
   &:hover {
     background-color: $card-bg-color;
   }
@@ -86,17 +87,21 @@ $thumbnail-size: $card-height * $thumbnail-size-rate;
       width: 100%;
       padding: $card-padding;
       padding-left: $thumbnail-size / 2 + $card-padding;
+      color: $card-text-color;
     }
     &-title {
       font-weight: bold;
-      height: 30%;
+      max-height: 30%;
+      font-size: 1.5rem;
+      line-height: 1.5rem;
+      color: darken($card-text-color, 20%);
     }
     &-desc {
       line-height: 1.5;
       height: 50%;
     }
     &-footer {
-      height: 20%;
+      max-height: 20%;
       font-size: 14px;
     }
     &-create-time {

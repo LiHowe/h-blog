@@ -1,5 +1,5 @@
 <template>
-  <div class="lang-switcher clickable" @click="changeLocale(locale)">
+  <div class="lang-switcher clickable" @click="changeLocale()">
     <svg-icon :icon-class="current" size="26" />
   </div>
 </template>

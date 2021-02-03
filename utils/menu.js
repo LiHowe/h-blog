@@ -14,19 +14,19 @@ export const menuList = [
   {
     title: 'aboutCode',
     to: '/code',
-    zh: '关于代码',
+    zh: '打工人日志',
     en: 'About Code'
   },
   {
     title: 'aboutWorld',
     to: '/world',
-    zh: '关于世界',
+    zh: '大千世界',
     en: 'About World'
   },
   {
     title: 'aboutLife',
     to: '/life',
-    zh: '关于生活',
+    zh: '柴米油盐',
     en: 'About Life'
   },
 ]

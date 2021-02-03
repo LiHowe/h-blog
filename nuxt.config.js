@@ -66,7 +66,7 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
-    // '@nuxt/content',
+    '@nuxt/content',
     '@nuxtjs/style-resources',
     'nuxt-webfontloader',
     ['nuxt-i18n', i18n]
@@ -76,13 +76,13 @@ export default {
   axios: {},
 
   // Content module configuration (https://go.nuxtjs.dev/config-content)
-  // content: {
-  //   markdown: {
-  //     prism: {
-  //       theme: 'prism-themes/themes/prism-material-oceanic.css'
-  //     }
-  //   }
-  // },
+  content: {
+    markdown: {
+      prism: {
+        theme: 'prism-themes/themes/prism-material-oceanic.css'
+      }
+    }
+  },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
