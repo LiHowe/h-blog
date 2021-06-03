@@ -1,7 +1,7 @@
 backend:
-  name: github
-  repo: LiHowe/h-blog
+  name: git-gateway
   branch: master
+  role: admin
 # 添加草稿, 预览, 发布接口
 publish_mode: editorial_workflow
 # 上传的媒体文件将放入该文件夹下
