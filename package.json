@@ -29,13 +29,17 @@
   },
   "devDependencies": {
     "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/tailwindcss": "^4.1.2",
     "@vue/test-utils": "^1.1.0",
+    "autoprefixer": "^10.2.6",
     "babel-core": "7.0.0-bridge.0",
     "husky": "^4.3.0",
     "node-sass": "^5.0.0",
+    "postcss": "^8.3.0",
     "responsive-loader": "^2.3.0",
     "sass-loader": "^10.1.0",
     "sharp": "^0.27.0",
+    "tailwindcss": "^2.1.4",
     "vue-jest": "^3.0.4"
   }
 }

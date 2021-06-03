@@ -1,0 +1,33 @@
+backend:
+  name: git-gateway
+  branch: master
+# 添加草稿, 预览, 发布接口
+publish_mode: editorial_workflow
+# 上传的媒体文件将放入该文件夹下
+media_folder: "static/images/uploads"
+# 如果没有提供该配置, 则默认使用media_folder
+public_folder: "/images/uploads"
+# markdown 解析模板
+collections:
+    # 作为路由路径
+  - name: 'blog'
+    # 用于 UI
+    label: 'Blog'
+    # 文章存储目录
+    folder: "_posts/blog"
+    # 允许用户创建新文章
+    create: true
+    # 文件名模板, 例如: YYYY-MM-DD-title.md
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    # 每个文章的字段
+    fields:
+        # label: 编辑器UI的字段名
+        # name: 文章扉页字段名
+        # widget: 部件, 决定数据类型和 UI样式, 完整部件列表 https://www.netlifycms.org/docs/widgets
+        # default?: 可选, 设置默认值
+      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime"}
+      - {label: "Featured Image", name: "thumbnail", widget: "image"}
+      - {label: "Rating (scale of 1-5)", name: "rating", widget: "number"}
+      - {label: "Body", name: "body", widget: "markdown"}
