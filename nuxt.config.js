@@ -5,9 +5,9 @@ import fs from 'fs'
 function getPaths (lang, type) {
   let initial = lang
   if (lang === 'zh') { initial = '' }
-  return fs.readdirSync(path.resolve(__dirname, 'content', `${lang}/${type}`))
+  return fs.readdirSync(path.resolve(__dirname, 'content', `${lang}/articles/${type}`))
     .filter(filename => path.extname(filename) === '.md')
-    .map(filename => `${initial}/${type}/${path.parse(filename).name}`)
+    .map(filename => `${initial}/articles/${type}/${path.parse(filename).name}`)
 }
 
 export default {
@@ -24,7 +24,7 @@ export default {
         content:
           'width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no',
       },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'a blog of a web developer' },
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
@@ -35,13 +35,8 @@ export default {
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     'normalize.css/normalize.css',
-    '@/assets/css/main.scss',
-    '@/assets/css/article.scss'
   ],
 
-  styleResources: {
-    scss: ['@/assets/css/_variable.scss'],
-  },
 
   // webfontloader: {
   //   custom: {
@@ -72,7 +67,6 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    '@nuxtjs/style-resources',
     // 'nuxt-webfontloader',
     ['nuxt-i18n', i18n]
   ],
@@ -91,7 +85,6 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    transpile: ['animejs'],
     extend (config) {
       const rule = config.module.rules.find(r => r.test.toString() === '/\\.(png|jpe?g|gif|svg|webp)$/i')
       config.module.rules.splice(config.module.rules.indexOf(rule), 1) // 移除默认url-loader, 为了responsive-loader
@@ -119,7 +112,18 @@ export default {
     routes: [
       '/zh', '404'
     ]
-    .concat(getPaths('zh', 'articles'))
-    .concat(getPaths('en', 'articles'))
+    .concat(getPaths('zh', 'code'))
+    .concat(getPaths('zh', 'world'))
+    .concat(getPaths('zh', 'life'))
+    .concat(getPaths('en', 'code'))
+    .concat(getPaths('en', 'world'))
+    .concat(getPaths('en', 'life'))
+  },
+
+  tailwindcss: {
+    cssPath: '~/assets/css/tailwind.css',
+    configPath: 'tailwind.config.js',
+    exposeConfig: false,
+    config: {}
   }
 }

@@ -19,14 +19,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-$size: $header-height - 2 * $header-padding;
-.lang-switcher {
-  display: inline-block;
-  position: relative;
-  height: $size;
-  width: $size;
-  line-height: $size + 5px; // small position adjustment, 5px is perfect for display center
-  text-align: center;
-}
-</style>

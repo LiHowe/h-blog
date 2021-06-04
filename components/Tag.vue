@@ -19,7 +19,7 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .tag-container {
   font-size: .85rem;
   background: #fafafa;

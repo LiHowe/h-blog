@@ -1,3 +1,29 @@
+# 全局变量
+config:
+  article:
+    tags: &tags
+      - "JavaScript"
+      - "HTML"
+      - "CSS"
+      - "TypeScript"
+      - "Vue"
+      - "React"
+      - "Angular"
+    fields: &fields
+        # label: 编辑器UI的字段名
+        # name: 文章扉页字段名
+        # widget: 部件, 决定数据类型和 UI样式, 完整部件列表 https://www.netlifycms.org/docs/widgets
+        # default?: 可选, 设置默认值
+      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Publish Date", name: "date", widget: "datetime", format: "dd/MM-YYYY" }
+      - {label: "Cover Image", name: "img", widget: "image"}
+      - {label: "Tags", name: "tag", widget: "select", options: *tags}
+      - {label: "Stick", name: 'stick', widget: 'boolean', default: false}
+      - {label: "Body", name: "body", widget: "markdown"}
+
+
+# 需要identity是open
 backend:
   name: git-gateway
   branch: master
@@ -7,27 +33,25 @@ publish_mode: editorial_workflow
 media_folder: "static/images/uploads"
 # 如果没有提供该配置, 则默认使用media_folder
 public_folder: "/images/uploads"
-# markdown 解析模板
+# markdown创建目录配置, 是一个集合, 可以配置不同的目录和模板
 collections:
     # 作为路由路径
-  - name: 'blog'
+  - name: 'articles/en'
     # 用于 UI
-    label: 'Blog'
+    label: 'Blog(en)'
     # 文章存储目录
-    folder: "_posts/blog"
+    folder: "content/articles/en"
     # 允许用户创建新文章
     create: true
     # 文件名模板, 例如: YYYY-MM-DD-title.md
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     # 每个文章的字段
     fields:
-        # label: 编辑器UI的字段名
-        # name: 文章扉页字段名
-        # widget: 部件, 决定数据类型和 UI样式, 完整部件列表 https://www.netlifycms.org/docs/widgets
-        # default?: 可选, 设置默认值
-      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime"}
-      - {label: "Featured Image", name: "thumbnail", widget: "image"}
-      - {label: "Rating (scale of 1-5)", name: "rating", widget: "number"}
-      - {label: "Body", name: "body", widget: "markdown"}
+      <<: *fields
+  - name: 'articles'
+    label: 'Blog'
+    folder: 'content/articles/zh'
+    create: true
+    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
+    fields:
+      <<: *fields

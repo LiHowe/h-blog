@@ -55,46 +55,9 @@ export default {
   },
   methods: {
     animeSvg() {
-      this.$anime({
-        targets: '.logo-h-line',
-        opacity: [0, 1],
-        duration: 5 * 1000,
-        delay: (el, i) => i * 250,
-      })
+
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-$logo-size: 40px;
-.logo-container {
-  user-select: none;
-  height: $logo-size;
-  line-height: $logo-size;
-  .logo-svg {
-    width: $logo-size;
-    height: $logo-size;
-    margin-right: $logo-size / 10;
-    &.fill {
-      &.dark {
-        g > path {
-          fill: $color-primary;
-        }
-      }
-      &.light {
-        g > path {
-          fill: #fff;
-        }
-      }
-    }
-    &.stroke {
-      g > path {
-        stroke: $color-primary;
-      }
-    }
-  }
-  .logo-text {
-    height: $logo-size * 0.6;
-  }
-}
-</style>
+

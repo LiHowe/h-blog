@@ -15,37 +15,3 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
-.layout-nav {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  .nav-item {
-    display: inline-block;
-    padding: 0 2.5 * $header-padding;
-    height: 100%;
-    line-height: $header-line-height;
-    position: relative;
-    &::after {
-      position: absolute;
-      width: 50%;
-      height: 2px;
-      left: 25%;
-      bottom: 0;
-      border-radius: 4px;
-      background: linear-gradient(#000, #fff);
-      transform: scaleY(0);
-      transition: all .25s;
-    }
-    &:hover {
-      color: $color-primary;
-      &::after {
-        transform: scaleY(1);
-      }
-    }
-  }
-  .nuxt-link-exact-active {
-    font-weight: bold;
-  }
-}
-</style>

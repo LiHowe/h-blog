@@ -18,7 +18,7 @@ export default {
   }
 };
 </script>
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 @keyframes rotate {
   from {
     transform: rotate(0);
