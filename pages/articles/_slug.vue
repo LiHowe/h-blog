@@ -40,7 +40,7 @@ export default {
   },
 }
 </script>
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .article {
   background: #fff;
   color: #000;

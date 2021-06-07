@@ -28,7 +28,7 @@ export default {
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
     script: [
-      { src: '//at.alicdn.com/t/font_2339230_54yg7uau8jr.js' }
+      { src: '//at.alicdn.com/t/font_2339230_8av6aovia6o.js' }
     ]
   },
 
@@ -57,6 +57,7 @@ export default {
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     '@nuxtjs/tailwindcss',
+    '@nuxtjs/color-mode',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -105,6 +106,12 @@ export default {
           name: 'img/[name].[hash:7].[ext]'
         }
       })
+    },
+    // optimizeCSS: true,
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-optional-chaining'
+      ]
     }
   },
 
@@ -121,9 +128,12 @@ export default {
   },
 
   tailwindcss: {
-    cssPath: '~/assets/css/tailwind.css',
-    configPath: 'tailwind.config.js',
-    exposeConfig: false,
+    exposeConfig: true,
     config: {}
+  },
+
+  colorMode: {
+    preference: 'light',
+    classSuffix: '', // 不添加这个的话会使用@nuxt/color-mode的默认后缀, -mode,导致不响应tailwind的darkmode
   }
 }

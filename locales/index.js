@@ -21,8 +21,8 @@ export default {
   fallbackLocale: 'zh',
   parsePages: false,
   lazy: true,
-  seo: false,
-  langDir: '/locales/',
+  seo: true,
+  langDir: 'locales/',
   detectBrowserLanguage: {
     useCookie: true,
     cookieKey: 'i18n_redirected',

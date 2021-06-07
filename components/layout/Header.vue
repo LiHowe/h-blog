@@ -1,17 +1,25 @@
 <template>
-  <nav class="container layout-header bg-gray-700">
-    <div class="header-content flex-box dis-select">
-      <Logo />
-      <div class="action-area flex-box">
-        <Nav />
-        <theme-switcher class="action-item" />
-        <lang-switcher class="action-item" />
+  <div class="layout-header px-2.5 py-1 dark:bg-gray-800 bg-gradient-to-r from-blue-500 to-green-500">
+    <div class="flex items-center justify-items-end">
+      <Logo class="w-16"/>
+      <div class="flex ml-auto">
+        <LayoutNav/>
+        <ThemeSwitcher class="action-item mr-3 cursor-pointer" />
+        <LangSwitcher class="action-item cursor-pointer" />
       </div>
     </div>
-  </nav>
+  </div>
 </template>
 <script>
 export default {
   name: 'Header',
 }
 </script>
+<style lang="postcss" scoped>
+.layout-header {
+  @apply
+  leading-5
+  w-auto
+  h-11;
+}
+</style>

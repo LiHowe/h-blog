@@ -1,19 +1,24 @@
 <template>
-  <div class="leading-normal tracking-normal bg-green-50">
-    <Header />
-    <Nuxt class="layout-body container mx-auto " />
-    <Footer class="border-red-400 bg-black"/>
+  <div class="layout">
+    <LayoutHeader />
+    <Nuxt class="layout-body container mx-auto min-h-full " />
+    <LayoutFooter/>
   </div>
 </template>
 
 <script>
-import Header from '@/components/layout/Header.vue'
-import Footer from '@/components/layout/Footer.vue'
 export default {
   layout: 'default',
-  components: {
-    Header,
-    Footer,
-  }
 }
 </script>
+<style lang="postcss" scoped>
+.layout {
+  @apply
+  min-h-screen
+  leading-normal
+  tracking-normal
+  dark:bg-gray-900
+  dark:text-gray-200;
+
+}
+</style>
