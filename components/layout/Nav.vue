@@ -1,9 +1,9 @@
 <template>
-  <ul class="layout-nav flex text-gray-200">
+  <ul class="layout-nav flex text-gray-700 dark:text-gray-200">
     <NuxtLink
       v-for="menu in menus"
       :key="menu.title"
-      class="nav-item cursor-pointer mr-3"
+      class="nav-item cursor-pointer mr-10 text-base"
       tag="li"
       :to="localePath(menu.to)"
     >

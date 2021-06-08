@@ -1,9 +1,9 @@
 <template>
-  <div class="article">
+  <div class="article container">
     <article class="article-content">
       <h1 class="article-title">{{ article.title }}</h1>
       <p class="article-createTime">
-        <Time :t="article.createdAt"/>
+        <Time :t="article.date"/>
       </p>
       <p class="article-description">{{ article.description }}</p>
       <nuxt-content class="article-content" :document="article" />
@@ -42,17 +42,19 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .article {
-  background: #fff;
-  color: #000;
-  border-radius: 6px;
-  margin-top: 20px;
-  padding: 0 20px 20px;
-  overflow: auto;
-  &-content {
-
-  }
-  &-header {
-
-  }
+  @apply
+  rounded-md
+  mx-auto
+  2xl:max-w-screen-xl
+  p-5
+  bg-gray-50
+  shadow-md
+  dark:bg-gray-600
+  dark:text-gray-200
+}
+.article-title {
+  @apply
+  p-0
+  m-0;
 }
 </style>

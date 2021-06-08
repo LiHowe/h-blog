@@ -1,9 +1,9 @@
 <template>
-  <div class="layout-header px-2.5 py-1 dark:bg-gray-800 bg-gradient-to-r from-blue-500 to-green-500">
+  <div class="layout-header">
     <div class="flex items-center justify-items-end">
       <Logo class="w-16"/>
+      <LayoutNav class="ml-auto"/>
       <div class="flex ml-auto">
-        <LayoutNav/>
         <ThemeSwitcher class="action-item mr-3 cursor-pointer" />
         <LangSwitcher class="action-item cursor-pointer" />
       </div>
@@ -20,6 +20,11 @@ export default {
   @apply
   leading-5
   w-auto
-  h-11;
+  px-2.5
+  py-1
+  text-center
+  h-12;
+}
+.dark .layout-header {
 }
 </style>

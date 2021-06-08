@@ -19,6 +19,7 @@ config:
       - {label: "Publish Date", name: "date", widget: "datetime", format: "dd/MM-YYYY" }
       - {label: "Cover Image", name: "img", widget: "image"}
       - {label: "Tags", name: "tag", widget: "select", options: *tags}
+      - {label: "Description", name: 'description', widget: 'text'}
       - {label: "Stick", name: 'stick', widget: 'boolean', default: false}
       - {label: "Body", name: "body", widget: "markdown"}
 

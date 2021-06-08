@@ -1,7 +1,7 @@
 <template>
   <div class="layout">
     <LayoutHeader />
-    <Nuxt class="layout-body container mx-auto min-h-full " />
+    <Nuxt class="layout-body container mx-auto min-h-full mt-3" />
     <LayoutFooter/>
   </div>
 </template>
@@ -14,6 +14,7 @@ export default {
 <style lang="postcss" scoped>
 .layout {
   @apply
+  relative
   min-h-screen
   leading-normal
   tracking-normal
