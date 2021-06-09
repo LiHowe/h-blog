@@ -1,29 +1,26 @@
 # 全局变量
-config:
-  article:
-    tags: &tags
-      - "JavaScript"
-      - "HTML"
-      - "CSS"
-      - "TypeScript"
-      - "Vue"
-      - "React"
-      - "Angular"
-    fields: &fields
-        # label: 编辑器UI的字段名
-        # name: 文章扉页字段名
-        # widget: 部件, 决定数据类型和 UI样式, 完整部件列表 https://www.netlifycms.org/docs/widgets
-        # default?: 可选, 设置默认值
-      - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
-      - {label: "Title", name: "title", widget: "string"}
-      - {label: "Publish Date", name: "date", widget: "datetime", format: "dd/MM-YYYY" }
-      - {label: "Cover Image", name: "img", widget: "image"}
-      - {label: "Tags", name: "tag", widget: "select", options: *tags}
-      - {label: "Description", name: 'description', widget: 'text'}
-      - {label: "Stick", name: 'stick', widget: 'boolean', default: false}
-      - {label: "Body", name: "body", widget: "markdown"}
+tags: &tags
+  - "JavaScript"
+  - "HTML"
+  - "CSS"
+  - "TypeScript"
+  - "Vue"
+  - "React"
+  - "Angular"
 
-
+# 本地开发
+local_backend: true
+# 语言, 默认为 en
+locale: "en"
+# 国际化 -- 使用slug进行替代
+# i18n:
+#   # 必填并且值必须在 multiple_folders, multiple_files 或者 single_file中
+#   # multiple_folders - 将文件保存在 `<folder>/<locale>/<slug>.<extension>`
+#   # multiple_files - 将文件保存在 `<folder>/<slug>.<locale>.<extension>`
+#   # single_file - 将单个文件保存在 `<folder>/<slug>.<extension>`
+#   structure: multiple_folders
+#   locales: [zh, en]
+#   default_locale: zh
 # 需要identity是open
 backend:
   name: git-gateway
@@ -37,22 +34,33 @@ public_folder: "/images/uploads"
 # markdown创建目录配置, 是一个集合, 可以配置不同的目录和模板
 collections:
     # 作为路由路径
-  - name: 'articles/en'
+  - name: blog
     # 用于 UI
-    label: 'Blog(en)'
+    label: Blog
     # 文章存储目录
-    folder: "content/articles/en"
+    folder: "content/"
     # 允许用户创建新文章
     create: true
+    # 嵌套文件夹
+    # nested:
+    #   depth: 100
+    #   summary: '{{title}}'
     # 文件名模板, 例如: YYYY-MM-DD-title.md
-    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    slug: "{{fields.language}}/{{fields.category}}/{{year}}-{{month}}-{{day}}_{{slug}}"
     # 每个文章的字段
     fields:
-      <<: *fields
-  - name: 'articles'
-    label: 'Blog'
-    folder: 'content/articles/zh'
-    create: true
-    slug: '{{year}}-{{month}}-{{day}}-{{slug}}'
-    fields:
-      <<: *fields
+    # label: 编辑器UI的字段名
+    # name: 文章扉页字段名
+    # widget: 部件, 决定数据类型和 UI样式, 完整部件列表 https://www.netlifycms.org/docs/widgets
+    # default?: 可选, 设置默认值
+    - {label: "category", name: "category", widget: 'select', options: [code, life, world], default: "code"}
+    - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
+    - {label: "Language", name: 'language', widget: 'select', options: ['zh', 'en'], default: 'zh'}
+    - {label: "Title", name: "title", widget: "string"}
+    - {label: "Publish Date", name: "date", widget: "datetime", format: "MM/DD-YYYY HH:mm" }
+    - {label: "Cover Image", name: "coverImage", widget: "image", default: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80'}
+    - {label: "Thumbnail", name: "thumbnail", widget: "image", default: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80'}
+    - {label: "Tags", name: "tags", widget: "select", options: *tags, multiple: true}
+    - {label: "Description", name: 'description', widget: 'text'}
+    - {label: "Stick", name: 'stick', widget: 'boolean', default: false}
+    - {label: "Body", name: "body", widget: "markdown"}

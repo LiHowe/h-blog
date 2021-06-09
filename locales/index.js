@@ -27,5 +27,6 @@ export default {
     useCookie: true,
     cookieKey: 'i18n_redirected',
     onlyOnRoot: true,  // recommended
+    fallbackLocale: 'zh'
   }
 }

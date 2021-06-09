@@ -1,19 +1,22 @@
 <template>
-  <div class="article container">
+  <div class="article container relative">
+    <div class="cover-image-wrapper">
+      <img class="cover-image" :src="article.coverImage" alt="">
+    </div>
     <article class="article-content">
-      <h1 class="article-title">{{ article.title }}</h1>
+      <span class="article-title">{{ article.title }}</span>
       <p class="article-createTime">
         <Time :t="article.date"/>
       </p>
       <p class="article-description">{{ article.description }}</p>
-      <nuxt-content class="article-content" :document="article" />
+      <nuxt-content class="content-body" :document="article" />
     </article>
     <div>
-      <NuxtLink v-if="prev" :to="localePath({ name: 'articles-slug', params: { slug: prev.slug }})">
+      <NuxtLink v-if="prev" :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: prev.slug }, query: { t: prev.category }}">
         上一篇: {{ prev.title }}
       </NuxtLink>
 
-      <NuxtLink v-if="next" :to="localePath({ name: 'articles-slug', params: { slug: next.slug }})">
+      <NuxtLink v-if="next" :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: next.slug}, query: { t: next.category }}">
         下一篇: {{ next.title }}
       </NuxtLink>
     </div>
@@ -22,12 +25,13 @@
 
 <script>
 export default {
-  async asyncData({ $content, params, app, error }) {
-    const article = await $content(`${app.i18n.locale}/articles`, params.slug).fetch().catch((err) => {
+  async asyncData({ $content, params, app, error, query }) {
+    const path = query.t
+    const article = await $content(`${app.i18n.locale}/${path}`, params.slug).fetch().catch((err) => {
       error({ statusCode: 404, message: 'Page not found' })
     })
-    const [prev, next] = await $content(`${app.i18n.locale}/articles`)
-      .only(['title', 'slug'])
+    const [prev, next] = await $content(`${app.i18n.locale}/${path}`)
+      .only(['title', 'slug', 'category'])
       .sortBy('createdAt', 'asc')
       .surround(params.slug)
       .fetch()
@@ -43,17 +47,50 @@ export default {
 <style lang="postcss" scoped>
 .article {
   @apply
-  rounded-md
-  mx-auto
+  bg-gray-50
+  p-4
+  rounded-lg
+  shadow-md;
+}
+.dark .article {
+ background-color: #DCD9D4;
+ background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
+ background-blend-mode: soft-light,screen;
+}
+.cover-image-wrapper {
+  @apply
+  relative
+  h-60
+  w-full
+  overflow-hidden
+  rounded-lg
+  object-center
+  object-scale-down
+  left-0
+  z-0
+}
+.cover-image {
+  @apply
+  w-full
+  h-full
+}
+.article-content {
+  @apply
+  relative
+  -mt-12
+  z-10
+  rounded-lg
+  mx-10
   2xl:max-w-screen-xl
   p-5
-  bg-gray-50
+  bg-gray-200
   shadow-md
-  dark:bg-gray-600
-  dark:text-gray-200
+  dark:text-gray-700
 }
+
 .article-title {
   @apply
+  text-2xl
   p-0
   m-0;
 }

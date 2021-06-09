@@ -5,9 +5,9 @@ import fs from 'fs'
 function getPaths (lang, type) {
   let initial = lang
   if (lang === 'zh') { initial = '' }
-  return fs.readdirSync(path.resolve(__dirname, 'content', `${lang}/articles/${type}`))
+  return fs.readdirSync(path.resolve(__dirname, 'content', `${lang}/${type}`))
     .filter(filename => path.extname(filename) === '.md')
-    .map(filename => `${initial}/articles/${type}/${path.parse(filename).name}`)
+    .map(filename => `${initial}/${path.parse(filename).name}`)
 }
 
 export default {

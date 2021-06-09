@@ -1,7 +1,7 @@
 <template>
-  <nuxt-link class="article-card" :class="`card-${mode}`" tag="div" :to="localePath({ name: 'articles-slug', params: { slug: article.slug }})">
-    <div class="card-thumbnail flex-none">
-      <img class="card-thumbnail-img w-32 h-32 rounded-sm" :src="article.img" />
+  <nuxt-link class="article-card" :class="`card-${mode}`" tag="div" :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: article.slug }, query: { t: article.category }}">
+    <div class="card-thumbnail flex-none w-32 h-32 flex items-center justify-center">
+      <img class="card-thumbnail-img object-scale-down rounded-sm" :src="article.thumbnail" />
     </div>
     <div class="card-info relative py-3 px-5 w-full leading-loose text-sm">
       <div class="font-semibold text-xl">
@@ -11,9 +11,9 @@
         {{ article.description }}
       </div>
       <div class="card-footer flex absolute bottom-3 left-0 px-5 w-full">
-        <Tag class="card-tag " v-for="(tag, i) in article.tag" :key="tag + i" :text="tag" />
+        <Tag class="card-tag " v-for="(tag, i) in article.tags" :key="tag + i" :text="tag" />
         <span class="card-create-time ml-auto">
-          {{ createTime }}
+          {{ article.date }}
         </span>
       </div>
     </div>
@@ -38,11 +38,6 @@ export default {
       default: 'line'
     }
   },
-  computed: {
-    createTime() {
-      return day(this.article.createAt).format('YYYY-MM-DD')
-    }
-  }
 }
 </script>
 <style lang="postcss" scoped>
@@ -58,6 +53,7 @@ export default {
   transition
   overflow-hidden
   relative
+  opacity-90
   dark:bg-gray-600
   dark:text-gray-200
   hover:scale-105
