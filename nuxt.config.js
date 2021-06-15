@@ -1,6 +1,7 @@
 const path = require('path')
 import i18n from './locales/index'
 import fs from 'fs'
+// import theme from '@nuxt/content-theme-docs'
 
 function getPaths (lang, type) {
   let initial = lang
@@ -10,6 +11,8 @@ function getPaths (lang, type) {
     .map(filename => `${initial}/${path.parse(filename).name}`)
 }
 
+// TODO: theme会影响@的指向, 会多一级, 使用~~代替
+// TODO: 调研theme问题
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
@@ -37,7 +40,6 @@ export default {
     'normalize.css/normalize.css',
   ],
 
-
   // webfontloader: {
   //   custom: {
   //     families: ['Source Sans Pro', 'Partner'],
@@ -46,9 +48,10 @@ export default {
   // },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
+  // 注意: 使用theme的话这个引用~需要两个, 不然会报错找不到
   plugins: [
-    '~/plugins/globalLib',
-    '~/plugins/lazyload',
+    '@/plugins/globalLib',
+    '@/plugins/lazyload',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -56,8 +59,8 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
-    '@nuxtjs/tailwindcss',
     '@nuxtjs/color-mode',
+    '@nuxtjs/tailwindcss',
   ],
 
   // Modules (https://go.nuxtjs.dev/config-modules)
@@ -81,7 +84,8 @@ export default {
       prism: {
         theme: 'prism-themes/themes/prism-material-oceanic.css'
       }
-    }
+    },
+    liveEdit: false
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
@@ -129,7 +133,6 @@ export default {
 
   tailwindcss: {
     exposeConfig: true,
-    config: {}
   },
 
   colorMode: {

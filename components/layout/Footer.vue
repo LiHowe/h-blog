@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-footer">Copyright © LiHowe 2020-2021</div>
+  <div class="layout-footer py-2.5 px-2">Copyright © LiHowe 2020-2021</div>
 </template>
 <script>
 export default {}
@@ -14,7 +14,5 @@ export default {}
   align-middle
   text-sm
   leading-loose
-  px-2
-  py-2.5
 }
 </style>

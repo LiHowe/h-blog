@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-header">
+  <div class="layout-header px-2.5 leading-5 w-auto py-1 text-center h-12">
     <div class="flex items-center justify-items-end">
       <Logo class="w-16"/>
       <LayoutNav class="ml-auto"/>
@@ -17,13 +17,6 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .layout-header {
-  @apply
-  leading-5
-  w-auto
-  px-2.5
-  py-1
-  text-center
-  h-12;
 }
 .dark .layout-header {
 }

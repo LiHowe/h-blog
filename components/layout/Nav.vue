@@ -12,7 +12,7 @@
   </ul>
 </template>
 <script>
-import { menuList } from '@/utils/menu'
+import { menuList } from '~/utils/menu'
 
 export default {
   name: 'Navigation',

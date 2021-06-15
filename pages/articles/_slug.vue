@@ -1,9 +1,9 @@
 <template>
-  <div class="article container relative">
-    <div class="cover-image-wrapper">
+  <div class="article container relative bg-gray-50">
+    <div class="cover-image-wrapper h-60">
       <img class="cover-image" :src="article.coverImage" alt="">
     </div>
-    <article class="article-content">
+    <article class="article-content dark:text-gray-700 2xl:max-w-screen-xl">
       <span class="article-title">{{ article.title }}</span>
       <p class="article-createTime">
         <Time :t="article.date"/>
@@ -46,11 +46,7 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .article {
-  @apply
-  bg-gray-50
-  p-4
-  rounded-lg
-  shadow-md;
+  @apply p-4 rounded-lg shadow-md;
 }
 .dark .article {
  background-color: #DCD9D4;
@@ -58,21 +54,10 @@ export default {
  background-blend-mode: soft-light,screen;
 }
 .cover-image-wrapper {
-  @apply
-  relative
-  h-60
-  w-full
-  overflow-hidden
-  rounded-lg
-  object-center
-  object-scale-down
-  left-0
-  z-0
+  @apply relative w-full overflow-hidden rounded-lg object-center object-scale-down left-0 z-0;
 }
 .cover-image {
-  @apply
-  w-full
-  h-full
+  @apply w-full h-full;
 }
 .article-content {
   @apply
@@ -81,11 +66,9 @@ export default {
   z-10
   rounded-lg
   mx-10
-  2xl:max-w-screen-xl
   p-5
   bg-gray-200
-  shadow-md
-  dark:text-gray-700
+  shadow-md;
 }
 
 .article-title {
