@@ -1,6 +1,6 @@
 <template>
   <nuxt-link
-    class="article-card bg-gray-100 2xl:max-w-screen-xl opacity-90"
+    class="article-card"
     tag="div"
     :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: article.slug }, query: { t: article.category }}"
   >
@@ -45,7 +45,8 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .article-card {
-  @apply rounded-md flex shadow-md cursor-pointer mx-auto transform duration-500 transition overflow-hidden relative dark:bg-gray-700 dark:text-gray-200;
+  @apply rounded-md flex shadow-md cursor-pointer mx-auto transform duration-500 transition overflow-hidden relative
+  dark:bg-gray-700 dark:bg-opacity-30 dark:text-gray-200 bg-gray-100 2xl:max-w-screen-xl opacity-90;
   &:hover {
     @apply scale-105 shadow-lg;
   }
