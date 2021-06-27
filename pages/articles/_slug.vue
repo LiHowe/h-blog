@@ -4,9 +4,9 @@
       <img class="cover-image" :src="article.coverImage" alt="">
     </div>
     <article class="article-content dark:text-gray-700 2xl:max-w-screen-xl">
-      <span class="article-title">{{ article.title }}</span>
+      <p class="article-title">{{ article.title }}</p>
       <p class="article-createTime">
-        <Time :t="article.date"/>
+        {{ article.date }}
       </p>
       <p class="article-description">{{ article.description }}</p>
       <nuxt-content class="content-body" :document="article" />
@@ -46,7 +46,7 @@ export default {
 </script>
 <style lang="postcss" scoped>
 .article {
-  @apply p-4 rounded-lg shadow-md;
+  @apply p-4 rounded-lg shadow-md text-base;
 }
 .dark .article {
  background-color: #DCD9D4;
@@ -61,20 +61,100 @@ export default {
 }
 .article-content {
   @apply
-  relative
-  -mt-12
-  z-10
-  rounded-lg
-  mx-10
-  p-5
-  bg-gray-200
-  shadow-md;
+    relative
+    -mt-12
+    z-10
+    rounded-lg
+    mx-10
+    p-8
+    bg-gray-200
+    leading-loose
+    shadow-md;
 }
 
 .article-title {
   @apply
-  text-2xl
-  p-0
-  m-0;
+    text-2xl
+    p-0
+    text-center
+    font-bold
+    m-0;
+}
+.content-body {
+  h2 {
+    @apply
+      leading-loose
+      border-b
+      border-gray-300
+      text-xl
+      my-4
+      font-bold;
+  }
+  h3 {
+    @apply
+      text-lg
+      leading-normal
+      my-3
+      font-bold;
+  }
+  a:not([aria-hidden]) {
+    @apply
+      underline
+      text-blue-500
+      mx-2;
+  }
+  pre {
+    @apply
+      rounded-md
+      font-mono
+      text-sm
+  }
+  ul {
+    @apply
+      pl-4;
+    li {
+      @apply list-disc ml-4;
+      ul {
+        li {
+          list-style: circle;
+        }
+      }
+    }
+  }
+  ol {
+    li {
+      @apply list-decimal list-inside;
+    }
+  }
+  table {
+    @apply w-full;
+    tr {
+       td {
+         @apply border-b border-gray-300 border-l;
+         &:last-child {
+           @apply border-r;
+         }
+       }
+    }
+    thead {
+      tr {
+        @apply
+          bg-gray-300;
+      }
+    }
+    tbody {
+      tr {
+        &:hover {
+          @apply bg-gray-300 bg-opacity-50 transition-colors duration-200;
+        }
+        td {
+          @apply px-4 text-sm leading-loose;
+        }
+      }
+    }
+  }
+  code:not(pre code) {
+    @apply border rounded bg-gray-300 px-2 py-0.5 mx-1;
+  }
 }
 </style>

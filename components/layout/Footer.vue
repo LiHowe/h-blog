@@ -7,12 +7,11 @@ export default {}
 <style scoped lang="postcss">
 .layout-footer {
   @apply
-  text-center
-  w-full
-  fixed
-  bottom-0
-  align-middle
-  text-sm
-  leading-loose
+    text-center
+    w-full
+    align-middle
+    text-sm
+    leading-loose
+    h-12
 }
 </style>

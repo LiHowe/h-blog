@@ -29,7 +29,10 @@ export default {
       },
       { hid: 'description', name: 'description', content: 'a blog of a web developer' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: 'stylesheet', href: '//fonts.cdnfonts.com/css/menlo'}
+    ],
     script: [
       { src: '//at.alicdn.com/t/font_2339230_8av6aovia6o.js' }
     ]
@@ -116,7 +119,12 @@ export default {
       plugins: [
         '@babel/plugin-proposal-optional-chaining'
       ]
-    }
+    },
+    postcss: {
+      plugins: {
+        'postcss-nested': {}
+      }
+    },
   },
 
   generate: {

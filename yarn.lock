@@ -7764,7 +7764,7 @@ postcss-modules-values@^4.0.0:
   dependencies:
     icss-utils "^5.0.0"
 
-postcss-nested@5.0.5:
+postcss-nested@5.0.5, postcss-nested@^5.0.5:
   version "5.0.5"
   resolved "https://registry.npm.taobao.org/postcss-nested/download/postcss-nested-5.0.5.tgz?cache=0&sync_timestamp=1614914936414&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fpostcss-nested%2Fdownload%2Fpostcss-nested-5.0.5.tgz#f0a107d33a9fab11d7637205f5321e27223e3603"
   integrity sha1-8KEH0zqfqxHXY3IF9TIeJyI+NgM=

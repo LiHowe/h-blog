@@ -101,12 +101,12 @@ Webstorm选手: 新版本已经自动集成了!!（老版本自行在插件市�
 ### 响应式
 
 class前缀 | 宽度阈值 | 对应CSS
--- | -- | -- |
+-- | -- | -- 
 `sm` | 640px | `@media (min-width: 640px) { ... }`
-`md` | 768px | `@media (min-width: 640px) { ... }`
-`lg` | 1024px | `@media (min-width: 640px) { ... }`
-`xl` | 1280px | `@media (min-width: 640px) { ... }`
-`2xl` | 1536px | `@media (min-width: 640px) { ... }`
+`md` | 768px | `@media (min-width: 768px) { ... }` 
+`lg` | 1024px | `@media (min-width: 1024px) { ... }` 
+`xl` | 1280px | `@media (min-width: 1280px) { ... }` 
+`2xl` | 1536px | `@media (min-width: 1536px) { ... }` 
 
 ### 状态转化(hover, focus和其他状态)
 
@@ -147,7 +147,7 @@ module.exports = {
 
   例:
 
-  ```ht
+  ```html
   <div class="mt-5 group px-6 py-5 max-w-full mx-auto w-72 border border-indigo-500 border-opacity-25 cursor-pointer rounded-lg select-none overflow-hidden space-y-1 hover:bg-white hover:shadow-lg hover:border-transparent">
     <p class="text-indigo-600 group-hover:text-gray-900">小卡片</p>
     <p class="text-indigo-500 group-hover:text-gray-500">这是描述内容</p>
