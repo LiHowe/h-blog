@@ -186,8 +186,8 @@ program.parse()
 + 单次定义多参数
   + `.arguments(<必填参数1> <必填参数2> [可选参数])`: 指定多参数, 但不能添加描述
   
-+ 也可以使用下面这种**不常用**的方法来获得额外配置
-	`.addArgument(Argument)`: 使用方式请看例6
++ 也可以使用`.addArgument(Argument)`这种**不常用**的方法来获得额外配置
+	
 
 + 标准写法
 
@@ -863,7 +863,9 @@ program.parse()
 
   
 
-+ 默认commander的选项(option)在子命令(command)的前后均可以被识别, 如果需要设置程序选项只能出现在子命令之前,则需要设置`.enablePositionalOptions()`.
++ `.enablePositionalOptions()`
+
+   默认commander的选项(option)在子命令(command)的前后均可以被识别, 如果需要设置程序选项只能出现在子命令之前,则需要调用该方法进行配置
 
   该设置主要是针对于 **子命令的选项与程序选项重名** 的场景
 
@@ -895,6 +897,96 @@ program.parse()
   // -> run port is 30
   ```
 
++ `.passThroughOptions()`
+
+  用于限定`option`位置, 配置该属性后`option`只能先于`argument`进行声明, `option`后面的参数全部会被解析为`argument`
+
+  ```javascript
+  const { program } = require('command')
+  
+  program
+    .argument('<utility>')
+    .argument('[args...]')
+    // .passThroughOptions()
+    .option('-p --port <port>')
+    .action((utility, args, options) => {
+      console.log('utility is', utility)
+      console.log('args is', args)
+      console.log('options is', options)
+    })
+  
+  program.parse()
+  
+  // 启用 .passThroughOptions()
+  // node ./bin/option/passThrough ut ar 12 32 -p 23
+  // utility is ut
+  // args is [ 'ar', '12', '32', '-p', '23' ]
+  // options is {}
+  
+  // 未启用 .passThroughOptions()
+  // node ./bin/option/passThrough ut ar 12 32 -p 23
+  // utility is ut
+  // args is [ 'ar', '12', '32' ]
+  // options is { port: '23' }
+  ```
+
+  
+
++ `.allowUnknownOption()`
+
+  开启该配置则Commander会忽略无法识别的`option`(默认为报错)
+
+  ```javascript
+  const { program } = require('commander')
+  
+  program
+    .option('-p --port <port>')
+    .action((options) => {
+      console.log('options is', options)
+    })
+  //   .allowUnknownOption()
+  
+  program.parse()
+  
+  // 未开启
+  // $ node ./bin/option/unknown -a
+  // error: unknown option '-a'
+  
+  // 开启
+  // $ node ./bin/option/unknown -a    
+  // options is {}
+  ```
+
+  
+
++ `.allowExcessArguments(false)`
+
+  默认Commander不会对过多的`argument`进行检查, 如果需要进行检查可开启该配置
+
+  当然, 如果你接受的参数是`<args...>` 或者 `[args...]`则该属性没什么影响
+
+  ```javascript
+  const { program } = require('commander')
+  
+  program
+    .argument('[location]', '地址', 'China')
+    .argument('<name>')
+    .action((location, name) => {
+      console.log('location is', location)
+      console.log('name is', name)
+    })
+    .allowExcessArguments(false)
+  
+  program.parse()
+  
+  // $ node ./bin/argument/excess hangzhou lihowe excess
+  // -> location is hangzhou
+  // -> name is lihowe
+  
+  // $ node ./bin/argument/excess hangzhou lihowe excess
+  // -> error: too many arguments. Expected 2 arguments but got 3.
+  ```
+
   
 
 
@@ -902,8 +994,6 @@ program.parse()
 ### 结语
 
 本文的例子可以在[demo/command](https://github.com/lihowe/demo/commander)进行运行查看
-
-
 
 ### 参考文献
 
