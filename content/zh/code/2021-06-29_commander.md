@@ -8,6 +8,7 @@ tags:
   - Node.js
   - JavaScript
   - Tutorials
+  - API
 description: Commander的简单使用
 stick: false
 wip: true
@@ -17,7 +18,7 @@ wip: true
 ## 介绍
 
 [Commander](https://www.npmjs.com/package/commander)是[tj](https://github.com/tj/)大神开发的一款针对NodeJS的完整命令行解决方案。
-广泛用于前端脚手架的开发，例如大名鼎鼎的`Vue-CLI`等，最新版本为8.x (记录于2021-06-29)
+广泛用于前端脚手架的开发，例如大名鼎鼎的`Vue-CLI`等，目前(2021-06-29)最新版本为8.x, 本文使用的版本即为8.x
 
 
 ## 安装
@@ -187,8 +188,6 @@ program.parse()
   
 + 也可以使用下面这种**不常用**的方法来获得额外配置
 	`.addArgument(Argument)`: 使用方式请看例6
-
-🌰 例子
 
 + 标准写法
 
@@ -362,8 +361,6 @@ program
 `action`用来设置命令接收到一系列参数后的具体操作
 `.action()`方法参数数量为该命令的`argument`数量 + 2(`options`, `command`)
 
-🌰 例子
-
 ```javascript
 const { program } = require('commander')
 
@@ -405,8 +402,6 @@ program.parse()
   + `.option('-短名称, --长名称 [可变数量可选参数...]', '描述(可选)')`
 
 + 可以使用`--`来表明`option`的结尾, `--`后面的参数将会被忽略掉
-
-🌰 例子
 
 ```javascript
 const { program } = require('commander')
@@ -577,7 +572,6 @@ program.parse()
 `.version()`用来设置命令当前版本, 默认选项标识为`-V` 和 `--version`  
 默认标识可以通过类似于`option`的语法进行覆盖, 可以参考下面例子
 
-举🌰说明
 ```javascript
 program
     .command('base-version')
@@ -599,7 +593,7 @@ program.parse()
 ```
 
 
-### 独立可执行(子)命令
+### 独立可执行(子)命令(Stand-alone)
 当以`.command(命令, 描述)`方式设置命令的时候, Commander将会使用** 独立可执行文件(即 每个command都是一个单独的文件) **的形式来定义命令, 如
 
 ```javascript
@@ -628,22 +622,289 @@ program.parse()
 ### 生命周期钩子(Hook)
 
 目前支持两个生命周期阶段
-+ preAction: 命令动作执行前
-+ postAction: 命令动作执行后
++ preAction: 命令动作执行前, `.hook('preAction', handler)`
++ postAction: 命令动作执行后, `.hook('afterAction', handler)`
+
+这两个生命周期钩子函数有两个默认参数`thisCommand`和`actionCommand`
+
++ `thisCommand`: 指顶级命令(最高层级命令)
++ `actionCommand`: 指正在执行的命令, 当只有一个层级命令的时候`thisCommand`与`actionCommand`相同
+
+```javascript
+const { program } = require('commander')
+
+program
+    .option('-p --port <port>')
+    .hook('preAction', (thisCommand, actionCommand) => {
+        console.log('pre action hook fn')
+        console.log('this command name is:', thisCommand.name())
+        console.log('action command name is:', actionCommand.name())
+    })
+    .hook('postAction', (thisCommand, actionCommand) => {
+        console.log('after action hook fn')
+    })
+    .action(option => {
+        console.log('option port is:', option.port)
+    })
+program
+    .command('test')
+    .action(() => {
+        console.log('run test')
+    })
+program.parse()
+
+// $ node bin/hook test
+// -> pre action hook fn
+// -> this command name is: hook
+// -> action command name is: test
+// -> run test
+// -> after action hook fn
+
+// $ node bin/hook -p 80 
+// -> pre action hook fn
+// -> this command name is: hook
+// -> action command name is: hook
+// -> option port is: 80
+// -> after action hook fn
+
+```
 
 
 
+### 自定义事件监听(On)
+
+你可以通过监听`command`或者`option`事件来执行自定义操作
+
+```javascript
+const { program } = require('commander')
+
+// 监听指定command
+program
+    .on('command:test', () => {
+        console.log('enter command listener')
+    })
+//  监听未定义command
+program
+    .on('command:*', function (operands) {
+        console.log('enter command:* listener', operands)
+    })
+
+program
+    .command('test')
+    .option('-p <port>')
+    // 监听选项p
+    .on('option:p', opt => {
+        console.log('enter option listener, option<p> is', opt)
+    })
+    .action(() => {
+        console.log('enter action')
+    })
+
+program.parse()
+
+// $ node ./bin/other/listener e a    
+// -> enter command:* listener [ 'e', 'a' ]
+
+// $ node ./bin/other/listener.js test      
+// -> enter action
+// -> enter command listener
+
+// $ node ./bin/other/listener.js test -p 20
+// -> enter option listener, option<p> is 20
+// -> enter action
+// -> enter command listener
+```
 
 
 
+### 帮助(Help)
+
+默认Commander会根据用户定义的命令配置自动生成帮助信息
+```shell
+$ node bin/hook -h
+
+Usage: hook [options] [command]
+
+Options:
+  -p --port <port>
+  -h, --help        display help for command
+
+Commands:
+  test
+```
+
+如果不需要自动生成的帮助信息, 可以使用`.helpOption(false)`来关闭
+
+`.helpOption()`方法也可以用来自定义全局的帮助选项
+
+`.helpOption('-e --custom', '描述:自定义帮助参数')`: 这样全局的`-h --help`就被覆写为`-e --custom`了
+
+#### 帮助信息插槽
+
+`Commander`预留了以下自定义帮助信息插槽
+
++ `beforeAll`: 在** 所有的 **命令帮助信息的最顶部显示, 相当于全局banner
++ `before`: 在当前命令帮助信息的最顶部显示
++ `after`: 在当前命令帮助信息的最底部显示
++ `afterAll`: 在** 所有的 **命令帮助信息的最底部显示, 相当于全局footer
+
+例如:
+命令的定义文件
+```javascript
+const { program } = require('commander')
+
+program
+    .option('-p --port <port>')
+    .action(option => {
+        console.log('option port is:', option.port)
+    })
+
+program
+    .command('test')
+    .action(() => {
+        console.log('run test')
+    })
+
+program
+    .addHelpText('before', 'this is before help text')
+    .addHelpText('beforeAll', 'this is beforeAll help text')
+    .addHelpText('after', 'this is after help text')
+    .addHelpText('afterAll', 'this is afterAll help text')
+
+program.parse()
+```
+不同的信息位置插槽对应的显示效果如下
+```shell
+$ node bin/hook test -h
+
+this is beforeAll help text
+Usage: hook test [options]
+
+Options:
+  -h, --help  display help for command
+this is afterAll help text
+
+$ node bin/hook -h
+this is beforeAll help text
+this is before help text
+Usage: hook [options] [command]
+
+Options:
+  -p --port <port>
+  -h, --help        display help for command
+
+Commands:
+  test
+this is after help text
+this is afterAll help text
+```
+
+也可以使用`showHelpAfterError('帮助信息')`来在程序出错之后显示对应提示
+
+```javascript
+const { program } = require('commander')
+program
+    .command('test')
+    .showHelpAfterError('(this is help information after error)')
+    
+program.parse()
+
+// $ node bin/hook test -error
+// -> error: unknown option '-error'
+// -> (this is help information after error)
+```
+
+#### 其他帮助配置
+
+ + `.name('命令名称')`: 用来设置命令的名称
+ + `.usage('命令用法说明')`: 用来自定义命令的用法提示
+ + `.help()`: 显示帮助信息并退出程序, 可以传入`{ error: true}`来将帮助信息作为stderr输出
+ + `.outputHelp()`: 显示帮助信息不退出程序,  也可以传入`{ error: true}`来将帮助信息作为stderr输出
+ + `.helpInformation()`: 用来获取命令帮助信息字符串
+
+ ```javascript
+ const { program } = require('commander')
+ 
+ program
+     .name('custom-name')
+     .usage('[global options] command')
+     .description('这是命令描述')
+ 	  .helpOption('-e --H', '描述: 覆写帮助选项为 -e --H')
+ 
+ console.log(program.helpInformation())
+ 
+ program.parse()
+ 
+ // $ node bin/other -e
+ // 会输出两遍帮助信息, 第一遍为console.log输出
+ // -> Usage: custom-name [global options] command
+ // -> 这是命令描述
+ // -> Options:
+ // ->  -e --H  描述: 覆写帮助选项为 -e --H
+ ```
 
 
 
+### 其他
+
++ `.parse(arr?, opt?)`
+
+  默认第一个参数为需要解析的字符串数组, 如果忽略则默认为[process.argv](http://nodejs.cn/api/process/process_argv.html)
+
+  如果参数遵循的约定与 node 不同, 那么设置第二个参数的`from`属性并进行传递：
+
+  - `'node'`: 默认值，`argv[0]`是应用，`argv[1]`是要跑的脚本，后续为用户参数；
+  - `'electron'`: `argv[1]`根据 electron 应用是否打包而变化；
+  - `'user'`: 来自用户的所有参数。
+
+  ```javascript
+  program.parse(process.argv, { form: 'node' })
+  ```
+
+  
+
++ 默认commander的选项(option)在子命令(command)的前后均可以被识别, 如果需要设置程序选项只能出现在子命令之前,则需要设置`.enablePositionalOptions()`.
+
+  该设置主要是针对于 **子命令的选项与程序选项重名** 的场景
+
+  ```javascript
+  const { program } = require('commander')
+  
+  program
+    .option('-p --port <port>')
+    .action(opt => {
+        console.log('program port is', opt.port)
+    })
+  
+  program
+    .command('run')
+    .option('-p --port <port>')
+    .action(opt => {
+        console.log('run port is', opt.port)
+    })
+  
+  // 不启用enablePositionalOptions的时候 run -p 选项是无法进行赋值的
+  // program.enablePositionalOptions()
+  
+  program.parse()
+  
+  // $ node ./bin/option/positional run -p 30
+  // # 启用前
+  // -> run port is undefined
+  // # 启用后
+  // -> run port is 30
+  ```
+
+  
 
 
 
+### 结语
+
+本文的例子可以在[demo/command](https://github.com/lihowe/demo/commander)进行运行查看
 
 
 
+### 参考文献
 
-
+[tj/commander.js at release/8.x (github.com)](https://github.com/tj/commander.js/tree/release/8.x#command-arguments)
