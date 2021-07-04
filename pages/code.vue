@@ -1,5 +1,5 @@
 <template>
-  <main class="container">
+  <main class="max-w-6xl mx-auto pt-16">
     <div class="card-list">
       <article-card :article="article" v-for="(article, index) in articles" :key="article.title + index" />
     </div>
@@ -22,9 +22,3 @@ export default {
   }
 }
 </script>
-<style lang="postcss" scoped>
-.container {
-  @apply
-  p-5
-}
-</style>

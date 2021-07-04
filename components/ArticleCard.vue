@@ -5,7 +5,7 @@
     :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: article.slug }, query: { t: article.category }}"
   >
     <div class="card-thumbnail flex-none w-32 h-32 flex items-center justify-center">
-      <img class="card-thumbnail-img object-scale-down rounded-sm" :src="article.thumbnail" />
+      <img class="card-thumbnail-img object-cover w-full h-full rounded-sm" :src="article.thumbnail || '/images/thumbnail.jpg'" />
     </div>
     <div class="card-info relative py-3 px-5 w-full leading-loose text-sm">
       <div class="font-semibold text-xl">
@@ -24,7 +24,6 @@
   </nuxt-link>
 </template>
 <script>
-
 export default {
   name: 'ArticleCard',
   props: {

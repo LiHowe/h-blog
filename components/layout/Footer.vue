@@ -12,6 +12,6 @@ export default {}
     align-middle
     text-sm
     leading-loose
-    h-12
+    h-20;
 }
 </style>

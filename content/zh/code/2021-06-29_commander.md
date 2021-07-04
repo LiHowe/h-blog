@@ -3,7 +3,7 @@ category: code
 layout: blog
 title: Commander教程
 date: 06/29-2021 16:09
-coverImage: https://i.loli.net/2021/06/09/likAPwq4rTvBxfZ.png
+coverImage: https://i.loli.net/2021/07/02/AduKHasYDtSgbMi.jpg
 tags:
   - Node.js
   - JavaScript
@@ -11,7 +11,7 @@ tags:
   - API
 description: Commander的简单使用
 stick: false
-wip: true
+wip: false
 
 ---
 
@@ -34,8 +34,9 @@ yarn add commander
 ## 使用
 
 以`vue create`命令为例
+![对照](https://i.loli.net/2021/06/29/Es4Ao1XtmrvScJq.png)
 
-### ![对照](https://i.loli.net/2021/06/29/Es4Ao1XtmrvScJq.png)获取Commander实例
+### 获取Commander实例
 
 + 在JavaScript中使用
 
@@ -69,7 +70,7 @@ import { program } from 'commander'
 
 例如:
 
-+ 标准使用
+#### 标准使用
 ```javascript
 const { program } = require('commander')
 
@@ -115,7 +116,7 @@ program.parseAsync()
 // -> 执行 hidden default 完毕
 ```
 
-+ 嵌套命令
+#### 嵌套命令
 ```javascript
 const { program } = require('commander')
 const drink = program.command('drink')
@@ -137,7 +138,7 @@ program.parse()
 // 喝茶🍵
 ```
 
-+ 使用`addCommand()`方法添加嵌套命令
+#### 使用`addCommand()`方法添加嵌套命令
 ```javascript
 function eat () {
 	const eat = new commander.Command('eat')
@@ -167,29 +168,30 @@ program.parse()
 `argument`用来为命令程序添加可输入的必填/选填参数  
 大致有下面几种添加方式👇
 
-+ 必填参数: 不可带默认值, 否则会抛出错误`a default value for a required argument is never used: '参数名'`
+#### 必填参数
+不可带默认值, 否则会抛出错误`a default value for a required argument is never used: '参数名'`
   + `.argument(<必填参数>)`: 指定必填参数
   + `.argument(<必填参数>, 参数描述)`: 指定必填参数并携带描述信息
   + `.argument(<必填参数>, 参数描述, 参数处理方法)`: 可以指定处理方法来处理参数
 
-+ 可选参数
+#### 可选参数
   + `.argument([可选参数])`: 指定可选参数
   + `.argument([可选参数], 参数描述)`: 指定可选参数并携带描述信息
   + `.argument([可选参数], 参数描述, 默认值)`: 指定可选参数,描述信息以及默认值
   + `.argument([可选参数], 参数描述, 参数处理方法, 默认值)`: 可以指定处理方法来处理参数
 
-+ 可变数量参数
+#### 可变数量参数
   + `.argument(<args...>, 参数描述)`: 指定可变数量必填参数
   + `.argument([args...], 参数描述, 默认值)`: 指定可变数量可选参数
   + `.argument([args...], 参数描述, 参数处理方法, 默认值)`: 指定可变数量可选参数
-  
-+ 单次定义多参数
-  + `.arguments(<必填参数1> <必填参数2> [可选参数])`: 指定多参数, 但不能添加描述
-  
-+ 也可以使用`.addArgument(Argument)`这种**不常用**的方法来获得额外配置
-	
 
-+ 标准写法
+#### 单次定义多参数
+`.arguments(<必填参数1> <必填参数2> [可选参数])`: 指定多参数, 但不能添加描述
+
+#### 额外配置
+可以使用`.addArgument(Argument)`这种**不常用**的方法来获得额外配置
+	
+例 - 标准写法
 
 ```javascript
 const { program } = require('commander')
@@ -209,7 +211,7 @@ program.parse()
 // 年龄是: 18
 ```
 
-+ 混用
+例 - 混用
 
 ```javascript
 const { program } = require('commander')
@@ -226,7 +228,7 @@ program.parse()
 // 年龄是: 18
 ```
 
-+ 全部使用`argument`定义`command`参数
+例 - 全部使用`argument`定义`command`参数
 
 ```javascript
 const { program } = require('commander')
@@ -248,7 +250,7 @@ program.parse()
 // 年龄是: 1
 ```
 
-+ 使用`arguments`一次定义多个参数
+例 - 使用`arguments`一次定义多个参数
 
 ```javascript
 const { program } = require('commander')
@@ -265,7 +267,7 @@ program.parse()
 // 年龄是: 18
 ```
 
-+ 使用`...`来接收可变数量参数
+例 - 使用`...`来接收可变数量参数
 
 ```javascript
 const { program } = require('commander')
@@ -288,7 +290,7 @@ program.parse()
 // lihowe
 ```
 
-+ 添加参数处理方法来处理单参数
+例 - 添加参数处理方法来处理单参数
 
 ```javascript
 const { program } = require('commander')
@@ -309,7 +311,7 @@ program.parse()
 // action接收值为: asuffix
 ```
 
-+ 添加参数处理方法来处理多参数
+例 - 添加参数处理方法来处理多参数
 
 ```javascript
 const { program } = require('commander')
@@ -331,7 +333,7 @@ program
 program.parse()
 ```
 
-+ 使用`addArgument`来添加参数
+例 - 使用`addArgument`添加参数
 
 ```javascript
 const { program, Argument } = require('commander')
@@ -394,7 +396,9 @@ program.parse()
 
 `command`实例默认定义有`-h, --help`选项, 用于显示默认生成的命令帮助(可以被覆盖掉)
 
-+ 基本用法与`argument`很相似
+#### 基本用法
+
+`option`的用法与`argument`及其相似
   + `.option('-短名称, --长名称')`: 短名称与长名称之间的分割符可以是`逗号`，`空格`或者`|`
   + `.option('-短名称, --长名称 <必填参数>', 描述(可选), 参数默认值(可选))
   + `.option('-短名称, --长名称 [可选参数]', 描述(可选), 参数默认值(可选))
@@ -402,6 +406,8 @@ program.parse()
   + `.option('-短名称, --长名称 [可变数量可选参数...]', '描述(可选)')`
 
 + 可以使用`--`来表明`option`的结尾, `--`后面的参数将会被忽略掉
+
+例 - 基本使用
 
 ```javascript
 const { program } = require('commander')
@@ -429,6 +435,8 @@ program.parse()
 // -> { p: '90', debug: true }
 ```
 
+例 - 可变参数
+
 ```javascript
 const { program } = require('commander')
 
@@ -452,7 +460,7 @@ program.parse()
 // -> { number: [ 100, 86 ] }
 ```
 
-+ 可以使用`.opts()`方法来获取`command`对象上的option定义
+#### `.opts()`: 获取`command`对象上的option定义
 
 ```javascript
 const { program } = require('commander')
@@ -464,7 +472,7 @@ console.log(a.opts())
 program.parse()
 ```
 
-+ 可以使用`--no-`前缀来定义默认值为`true`的长命令选项
+#### `--no-`前缀: 定义默认值为`true`的长命令选项
 
 ```javascript
 const { program } = require('commander')
@@ -508,7 +516,7 @@ program.parse()
 // -> { debug: true }
 ```
 
-+ 可以使用`addOption`方法对option进行更多配置
+#### `addOption()`: 对option进行更多配置
 
 ```javascript
 const { program, Option } = require('commander')
@@ -545,7 +553,7 @@ Options:
 
 ```
 
-+ 也可以自定义`option`值处理函数
+#### 处理`option`的接收值
 与`argument`的处理函数一样, `option`定义的默认值**不会**调用处理函数
 
 ```javascript
@@ -822,7 +830,7 @@ program.parse()
  + `.outputHelp()`: 显示帮助信息不退出程序,  也可以传入`{ error: true}`来将帮助信息作为stderr输出
  + `.helpInformation()`: 用来获取命令帮助信息字符串
 
- ```javascript
+```javascript
  const { program } = require('commander')
  
  program
@@ -841,154 +849,150 @@ program.parse()
  // -> 这是命令描述
  // -> Options:
  // ->  -e --H  描述: 覆写帮助选项为 -e --H
- ```
+```
 
 
 
 ### 其他
 
-+ `.parse(arr?, opt?)`
+#### `.parse(arr?, opt?)`
 
-  默认第一个参数为需要解析的字符串数组, 如果忽略则默认为[process.argv](http://nodejs.cn/api/process/process_argv.html)
+默认第一个参数为需要解析的字符串数组, 如果忽略则默认为[process.argv](http://nodejs.cn/api/process/process_argv.html)
 
-  如果参数遵循的约定与 node 不同, 那么设置第二个参数的`from`属性并进行传递：
+如果参数遵循的约定与 node 不同, 那么设置第二个参数的`from`属性并进行传递：
 
-  - `'node'`: 默认值，`argv[0]`是应用，`argv[1]`是要跑的脚本，后续为用户参数；
-  - `'electron'`: `argv[1]`根据 electron 应用是否打包而变化；
-  - `'user'`: 来自用户的所有参数。
+- `'node'`: 默认值，`argv[0]`是应用，`argv[1]`是要跑的脚本，后续为用户参数；
+- `'electron'`: `argv[1]`根据 electron 应用是否打包而变化；
+- `'user'`: 来自用户的所有参数。
 
-  ```javascript
-  program.parse(process.argv, { form: 'node' })
-  ```
-
-  
-
-+ `.enablePositionalOptions()`
-
-   默认commander的选项(option)在子命令(command)的前后均可以被识别, 如果需要设置程序选项只能出现在子命令之前,则需要调用该方法进行配置
-
-  该设置主要是针对于 **子命令的选项与程序选项重名** 的场景
-
-  ```javascript
-  const { program } = require('commander')
-  
-  program
-    .option('-p --port <port>')
-    .action(opt => {
-        console.log('program port is', opt.port)
-    })
-  
-  program
-    .command('run')
-    .option('-p --port <port>')
-    .action(opt => {
-        console.log('run port is', opt.port)
-    })
-  
-  // 不启用enablePositionalOptions的时候 run -p 选项是无法进行赋值的
-  // program.enablePositionalOptions()
-  
-  program.parse()
-  
-  // $ node ./bin/option/positional run -p 30
-  // # 启用前
-  // -> run port is undefined
-  // # 启用后
-  // -> run port is 30
-  ```
-
-+ `.passThroughOptions()`
-
-  用于限定`option`位置, 配置该属性后`option`只能先于`argument`进行声明, `option`后面的参数全部会被解析为`argument`
-
-  ```javascript
-  const { program } = require('command')
-  
-  program
-    .argument('<utility>')
-    .argument('[args...]')
-    // .passThroughOptions()
-    .option('-p --port <port>')
-    .action((utility, args, options) => {
-      console.log('utility is', utility)
-      console.log('args is', args)
-      console.log('options is', options)
-    })
-  
-  program.parse()
-  
-  // 启用 .passThroughOptions()
-  // node ./bin/option/passThrough ut ar 12 32 -p 23
-  // utility is ut
-  // args is [ 'ar', '12', '32', '-p', '23' ]
-  // options is {}
-  
-  // 未启用 .passThroughOptions()
-  // node ./bin/option/passThrough ut ar 12 32 -p 23
-  // utility is ut
-  // args is [ 'ar', '12', '32' ]
-  // options is { port: '23' }
-  ```
+```javascript
+	program.parse(process.argv, { form: 'node' })
+```
 
   
 
-+ `.allowUnknownOption()`
+#### `.enablePositionalOptions()`
 
-  开启该配置则Commander会忽略无法识别的`option`(默认为报错)
+默认commander的选项(option)在子命令(command)的前后均可以被识别, 如果需要设置程序选项只能出现在子命令之前,则需要调用该方法进行配置
 
-  ```javascript
-  const { program } = require('commander')
-  
-  program
-    .option('-p --port <port>')
-    .action((options) => {
-      console.log('options is', options)
-    })
-  //   .allowUnknownOption()
-  
-  program.parse()
-  
-  // 未开启
-  // $ node ./bin/option/unknown -a
-  // error: unknown option '-a'
-  
-  // 开启
-  // $ node ./bin/option/unknown -a    
-  // options is {}
-  ```
+该设置主要是针对于 **子命令的选项与程序选项重名** 的场景
+
+```javascript
+const { program } = require('commander')
+
+program
+  .option('-p --port <port>')
+  .action(opt => {
+  	console.log('program port is', opt.port)
+  })
+
+program
+  .command('run')
+  .option('-p --port <port>')
+  .action(opt => {
+  	console.log('run port is', opt.port)
+  })
+
+// 不启用enablePositionalOptions的时候 run -p 选项是无法进行赋值的
+// program.enablePositionalOptions()
+
+program.parse()
+
+// $ node ./bin/option/positional run -p 30
+// # 启用前
+// -> run port is undefined
+// # 启用后
+// -> run port is 30
+```
+
+#### `.passThroughOptions()`
+
+用于限定`option`位置, 配置该属性后`option`只能先于`argument`进行声明, `option`后面的参数全部会被解析为`argument`
+
+```javascript
+const { program } = require('command')
+
+program
+  .argument('<utility>')
+  .argument('[args...]')
+  // .passThroughOptions()
+  .option('-p --port <port>')
+  .action((utility, args, options) => {
+    console.log('utility is', utility)
+    console.log('args is', args)
+    console.log('options is', options)
+  })
+
+program.parse()
+
+// 启用 .passThroughOptions()
+// node ./bin/option/passThrough ut ar 12 32 -p 23
+// utility is ut
+// args is [ 'ar', '12', '32', '-p', '23' ]
+// options is {}
+
+// 未启用 .passThroughOptions()
+// node ./bin/option/passThrough ut ar 12 32 -p 23
+// utility is ut
+// args is [ 'ar', '12', '32' ]
+// options is { port: '23' }
+```
+
+
+#### `.allowUnknownOption()`
+
+开启该配置则Commander会忽略无法识别的`option`(默认为报错)
+
+```javascript
+const { program } = require('commander')
+
+program
+  .option('-p --port <port>')
+  .action((options) => {
+  console.log('options is', options)
+	})
+//   .allowUnknownOption()
+
+program.parse()
+
+// 未开启
+// $ node ./bin/option/unknown -a
+// error: unknown option '-a'
+
+// 开启
+// $ node ./bin/option/unknown -a    
+// options is {}
+```
 
   
 
-+ `.allowExcessArguments(false)`
+#### `.allowExcessArguments(false)`
 
-  默认Commander不会对过多的`argument`进行检查, 如果需要进行检查可开启该配置
+默认Commander不会对过多的`argument`进行检查, 如果需要进行检查可开启该配置
 
-  当然, 如果你接受的参数是`<args...>` 或者 `[args...]`则该属性没什么影响
+当然, 如果你接受的参数是`<args...>` 或者 `[args...]`则该属性没什么影响
 
-  ```javascript
-  const { program } = require('commander')
-  
-  program
-    .argument('[location]', '地址', 'China')
-    .argument('<name>')
-    .action((location, name) => {
-      console.log('location is', location)
-      console.log('name is', name)
-    })
-    .allowExcessArguments(false)
-  
-  program.parse()
-  
-  // $ node ./bin/argument/excess hangzhou lihowe excess
-  // -> location is hangzhou
-  // -> name is lihowe
-  
-  // $ node ./bin/argument/excess hangzhou lihowe excess
-  // -> error: too many arguments. Expected 2 arguments but got 3.
-  ```
+```javascript
+const { program } = require('commander')
 
-  
+program
+  .argument('[location]', '地址', 'China')
+  .argument('<name>')
+  .action((location, name) => {
+    console.log('location is', location)
+    console.log('name is', name)
+  })
+	.allowExcessArguments(false)
 
+program.parse()
+
+// $ node ./bin/argument/excess hangzhou lihowe excess
+// -> location is hangzhou
+// -> name is lihowe
+
+// $ node ./bin/argument/excess hangzhou lihowe excess
+// -> error: too many arguments. Expected 2 arguments but got 3.
+```
 
 
 ### 结语

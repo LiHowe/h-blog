@@ -34,7 +34,7 @@ export default {
       // { rel: 'stylesheet', href: '//fonts.cdnfonts.com/css/menlo'}
     ],
     script: [
-      { src: '//at.alicdn.com/t/font_2339230_8av6aovia6o.js' }
+      { src: '//at.alicdn.com/t/font_2339230_yeswt2q11f.js' }
     ]
   },
 

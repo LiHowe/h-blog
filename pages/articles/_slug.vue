@@ -1,22 +1,25 @@
 <template>
-  <div class="article container relative bg-gray-50">
-    <div class="cover-image-wrapper h-60">
-      <img class="cover-image" :src="article.coverImage" alt="">
+  <div class="article max-w-6xl mx-auto relative bg-transparent">
+    <div class="grid gap-24 grid-cols-1 lg:grid-cols-3">
+      <section class="article-content dark:text-gray-300 col-span-1 lg:col-span-2">
+        <div class="cover-image-wrapper h-60">
+          <img class="cover-image" :src="article.coverImage" alt="">
+        </div>
+        <p class="article-title">{{ article.title }}</p>
+        <p class="article-createTime">
+          {{ article.date }}
+        </p>
+        <p class="article-description">{{ article.description }}</p>
+        <nuxt-content class="content-body" :document="article" />
+      </section>
+      <table-of-content class="lg:col-span-1" :toc="article.toc" />
     </div>
-    <article class="article-content dark:text-gray-700 2xl:max-w-screen-xl">
-      <p class="article-title">{{ article.title }}</p>
-      <p class="article-createTime">
-        {{ article.date }}
-      </p>
-      <p class="article-description">{{ article.description }}</p>
-      <nuxt-content class="content-body" :document="article" />
-    </article>
-    <div>
-      <NuxtLink v-if="prev" :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: prev.slug }, query: { t: prev.category }}">
+    <div class="flex">
+      <NuxtLink class="mr-auto" v-if="prev" :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: prev.slug }, query: { t: prev.category }}">
         上一篇: {{ prev.title }}
       </NuxtLink>
 
-      <NuxtLink v-if="next" :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: next.slug}, query: { t: next.category }}">
+      <NuxtLink class="ml-auto" v-if="next" :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: next.slug}, query: { t: next.category }}">
         下一篇: {{ next.title }}
       </NuxtLink>
     </div>
@@ -35,7 +38,7 @@ export default {
       .sortBy('createdAt', 'asc')
       .surround(params.slug)
       .fetch()
-
+    console.log(article)
     return {
       prev,
       next,
@@ -45,14 +48,6 @@ export default {
 }
 </script>
 <style lang="postcss" scoped>
-.article {
-  @apply p-4 rounded-lg shadow-md text-base;
-}
-.dark .article {
- background-color: #DCD9D4;
- background-image: linear-gradient(to bottom, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%), radial-gradient(at 50% 0%, rgba(255,255,255,0.10) 0%, rgba(0,0,0,0.50) 50%);
- background-blend-mode: soft-light,screen;
-}
 .cover-image-wrapper {
   @apply relative w-full overflow-hidden rounded-lg object-center object-scale-down left-0 z-0;
 }
@@ -62,14 +57,10 @@ export default {
 .article-content {
   @apply
     relative
-    -mt-12
     z-10
     rounded-lg
-    mx-10
     p-8
-    bg-gray-200
-    leading-loose
-    shadow-md;
+    leading-loose;
 }
 
 .article-title {
@@ -78,7 +69,8 @@ export default {
     p-0
     text-center
     font-bold
-    m-0;
+    leading-loose
+    my-2;
 }
 .content-body {
   h2 {
@@ -88,6 +80,8 @@ export default {
       border-gray-300
       text-xl
       my-4
+      text-center
+      tracking-wide
       font-bold;
   }
   h3 {
@@ -139,7 +133,15 @@ export default {
     thead {
       tr {
         @apply
-          bg-gray-300;
+          bg-gray-500
+          dark:text-gray-200
+          ;
+        th {
+          @apply
+            border-r
+            dark:border-gray-300
+            ;
+        }
       }
     }
     tbody {
@@ -154,7 +156,7 @@ export default {
     }
   }
   code:not(pre code) {
-    @apply border rounded bg-gray-300 px-2 py-0.5 mx-1;
+    @apply border rounded bg-gray-300 text-gray-800 px-2 py-0.5 mx-1 text-sm;
   }
 }
 </style>

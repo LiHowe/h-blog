@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    this is home page
+    Welcome to my blog
   </div>
 </template>
 <script>
