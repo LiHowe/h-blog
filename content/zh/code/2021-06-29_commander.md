@@ -34,7 +34,10 @@ yarn add commander
 ## 使用
 
 以`vue create`命令为例
-![对照](https://i.loli.net/2021/06/29/Es4Ao1XtmrvScJq.png)
+
+![对照](https://howe-blog.oss-cn-hangzhou.aliyuncs.com/%E5%AF%B9%E7%85%A7.png)
+
+
 
 ### 获取Commander实例
 

@@ -20,60 +20,134 @@ wip: true
 
 ## 为什么要使用这东西?
 
-希望大家先看看下面的几个例子来决定该框架是否适合你
+希望大家先看看下面的官网的例子来决定该框架是否适合你, 例如要实现下面的样式
 
-### 🌰例1 - 简单样式
+<div class="chat-notification">
+  <div class="chat-notification-logo-wrapper">
+    <img class="chat-notification-logo" src="https://avatars0.githubusercontent.com/u/67109815?v=4" alt="ChitChat Logo">
+  </div>
+  <div class="chat-notification-content">
+    <h4 class="chat-notification-title">ChitChat</h4>
+    <p class="chat-notification-message">You have a new message!</p>
+  </div>
+</div>
 
-例如:
+<style>
+  .chat-notification {
+    display: flex;
+    max-width: 24rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  .chat-notification-logo-wrapper {
+    flex-shrink: 0;
+  }
+  .chat-notification-logo {
+    height: 3rem;
+    width: 3rem;
+  }
+  .chat-notification-content {
+    margin-left: 1.5rem;
+    padding-top: 0.25rem;
+  }
+  .chat-notification-title {
+    color: #1a202c;
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+  .chat-notification-message {
+    color: #718096;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+</style>
+
++ 使用传统CSS
 
 ```html
-<div class="demo-box">
-This is a DEMO box
+<div class="chat-notification">
+  <div class="chat-notification-logo-wrapper">
+    <img class="chat-notification-logo" src="https://avatars0.githubusercontent.com/u/67109815?v=4" alt="ChitChat Logo">
+  </div>
+  <div class="chat-notification-content">
+    <h4 class="chat-notification-title">ChitChat</h4>
+    <p class="chat-notification-message">You have a new message!</p>
+  </div>
+</div>
+```
+  
+```css
+<style>
+  .chat-notification {
+    display: flex;
+    max-width: 24rem;
+    margin: 0 auto;
+    padding: 1.5rem;
+    border-radius: 0.5rem;
+    background-color: #fff;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+  .chat-notification-logo-wrapper {
+    flex-shrink: 0;
+  }
+  .chat-notification-logo {
+    height: 3rem;
+    width: 3rem;
+  }
+  .chat-notification-content {
+    margin-left: 1.5rem;
+    padding-top: 0.25rem;
+  }
+  .chat-notification-title {
+    color: #1a202c;
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+  .chat-notification-message {
+    color: #718096;
+    font-size: 1rem;
+    line-height: 1.5;
+  }
+</style>
+```
+
++ 使用tailwindCSS
+
+```html
+<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
+  <div class="flex-shrink-0">
+    <img class="h-12 w-12" src="[/img/logo.svg](https://avatars0.githubusercontent.com/u/67109815?v=4)" alt="ChitChat Logo">
+  </div>
+  <div>
+    <div class="text-xl font-medium text-black">ChitChat</div>
+    <p class="text-gray-500">You have a new message!</p>
+  </div>
 </div>
 ```
 
-要实现 <u>将`demo-box`这个div画成圆角添加阴影，添加内边距，并且将文字加粗</u> 这个简单的样式
+通过观察和比较上面的例子可以看出`tailwindCSS`较传统CSS写法的优势
 
-+ CSS
+1. 以功能类(或称为原子类)为主进行样式开发, 无需进行css开发
+2. 不需要痛苦地为每个元素起类名了
 
-  ```css
-  .demo-box {
-    border-radius: 4px;
-    font-weight: bold;
-    padding: 4px;
-    box-shadow: 0 0 4px black;
-  }
-  ```
+其实`tailwindCSS`的优势远不止这些, 它还有以下优点
 
-  
+1. 内置响应式设计, 无需再写`@media`等媒体查询来进行响应式设计
+2. 提供了深色模式, 能够快速的进行网站双色模式的开发
+3. 提供了函数和指令, 可以获取当前使用的主题配置等
+4. 能够提供设计约束, 避免自己手写CSS导致各种单位以及样式不统一的问题
+5. 便于后期项目维护
+6. 提供了tree-shaking, 可以显著减小打包后的CSS文件大小
+7. 提供了VSCode插件, 能够显著提升开发速度(前提是得对文档熟悉)
 
-+ inlineStyle
+当然, `tailwindCSS`的缺点也比较明显:
 
-  ```html
-  <div style="border-radius: 4px;font-weight: bold;padding: 4px;box-shadow: 0 0 4px black;">
-    This is a DEMO box
-  </div>
-  ```
-
-  
-
-+ TailwindCSS
-
-  ```html
-  <div class="rounded font-bold p-2 shadow">
-    This is a DEMO box
-  </div>
-  ```
-
-  
-
-看起来只是将内联样式的写法简化成一个个class，没有减少多少代码量
-
-
-
-### 🌰例2 -- 稍复杂样式
-
-
+1. 有一定的学习成本, 需要记类名(这可能不是框架的缺点,而是我自己的缺点)
+2. 复杂样式下html元素的类名比较长
+3. C端等自定义样式较多的项目不适合使用
 
 ## 👋 开始使用
 
@@ -123,8 +197,6 @@ module.exports = {
   },
 }
 ```
-
-
 
 + hover:
 

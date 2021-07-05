@@ -39,7 +39,7 @@ export default {
       },
       default: 'line'
     }
-  },
+  }
 }
 </script>
 <style lang="postcss" scoped>

@@ -9,6 +9,7 @@
 export default {
   async asyncData({ app, $content, error, params }) {
     const articles = await $content(`${app.i18n.locale}/code`, params.slug)
+      // .where({ wip: false })
       // .only(['title', 'tag', 'slug', 'description', 'createdAt', 'stick', 'img']) // 筛选markdown属性
       .sortBy('date', 'asc')
       .fetch()
