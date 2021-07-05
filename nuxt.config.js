@@ -41,7 +41,6 @@ export default {
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'normalize.css/normalize.css',
   ],
 
   // webfontloader: {

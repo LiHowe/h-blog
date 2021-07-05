@@ -94,14 +94,18 @@ export default {
   a:not([aria-hidden]) {
     @apply
       underline
-      text-blue-500
+      text-green-400
+      drop-shadow-md
+      transition-all
       mx-2;
+    &:hover {
+      text-shadow: 0 1px 5px #34d380;
+    }
   }
   pre {
     @apply
       rounded-md
-      font-mono
-      text-sm
+      text-sm;
   }
   ul {
     @apply
@@ -156,7 +160,7 @@ export default {
     }
   }
   code:not(pre code) {
-    @apply border rounded bg-gray-300 text-gray-800 px-2 py-0.5 mx-1 text-sm;
+    @apply border rounded border-gray-300 bg-gray-300 text-gray-800 px-2 py-0.5 mx-1 text-sm;
   }
 }
 </style>
