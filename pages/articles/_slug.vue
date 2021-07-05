@@ -122,6 +122,9 @@ export default {
   ol {
     li {
       @apply list-decimal list-inside;
+      &::marker {
+        font-weight: bold;
+      }
     }
   }
   table {
@@ -137,13 +140,12 @@ export default {
     thead {
       tr {
         @apply
-          bg-gray-500
-          dark:text-gray-200
-          ;
+          bg-gray-300
+          text-gray-600;
         th {
           @apply
             border-r
-            dark:border-gray-300
+            border-gray-300
             ;
         }
       }
@@ -151,7 +153,7 @@ export default {
     tbody {
       tr {
         &:hover {
-          @apply bg-gray-300 bg-opacity-50 transition-colors duration-200;
+          @apply bg-gray-200 bg-opacity-50 transition-colors duration-200;
         }
         td {
           @apply px-4 text-sm leading-loose;
@@ -160,7 +162,7 @@ export default {
     }
   }
   code:not(pre code) {
-    @apply border rounded border-gray-300 bg-gray-300 text-gray-800 px-2 py-0.5 mx-1 text-sm;
+    @apply border rounded px-2 py-0.5 mx-1 text-sm border-gray-200 bg-gray-200 text-gray-600;
   }
 }
 </style>

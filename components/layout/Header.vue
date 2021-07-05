@@ -1,5 +1,5 @@
 <template>
-  <div class="layout-header fixed top-0 w-full bg-gray-200 dark:bg-gray-800 transition-colors duration-200 z-10">
+  <div class="layout-header fixed top-0 w-full bg-gray-50 dark:bg-gray-800 transition-colors duration-200 z-10">
     <div class="max-w-6xl mx-auto flex items-center h-16">
       <Logo class="w-16"/>
       <LayoutNav class="ml-16"/>
