@@ -27,6 +27,10 @@
 </template>
 
 <script>
+import CopyButton from '@/components/CopyButton'
+import BackToTop from '@/components/BackToTop'
+import Vue from 'vue'
+
 export default {
   async asyncData({ $content, params, app, error, query }) {
     const path = query.t
@@ -38,13 +42,52 @@ export default {
       .sortBy('createdAt', 'asc')
       .surround(params.slug)
       .fetch()
-    console.log(article)
     return {
       prev,
       next,
       article
     }
   },
+  mounted () {
+    setTimeout(() => {
+      // 获取全部代码块
+      const blocks = document.querySelectorAll('.nuxt-content-highlight')
+      blocks.forEach(block => {
+        block.classList.add('relative', 'group')
+        const Button = Vue.extend(CopyButton)
+        const component = new Button().$mount()
+        block.appendChild(component.$el)
+        block.appendChild(this.genHighlightType(block))
+      })
+    }, 100)
+    setTimeout(() => {
+      const BTT = Vue.extend(BackToTop)
+      const bttEl = new BTT().$mount()
+      document.body.appendChild(bttEl.$el)
+    }, 100)
+  },
+  methods: {
+    // 获取高亮代码块的语言
+    genHighlightType (block) {
+      const preEl = block.firstElementChild
+      if (!preEl) return null
+      const codeLang = preEl.className.match(/language-(.*)/)[1]
+      const codeLangEl = document.createElement('span')
+      codeLangEl.classList.add(
+        'absolute',
+        'right-1',
+        'top-1',
+        'float-right',
+        'text-xs',
+        'font-thin',
+        'tracking-wide',
+        'select-none',
+        'text-gray-100'
+      )
+      codeLangEl.innerText = codeLang
+      return codeLangEl
+    }
+  }
 }
 </script>
 <style lang="postcss" scoped>
@@ -93,15 +136,21 @@ export default {
   }
   a:not([aria-hidden]) {
     @apply
-      underline
-      text-blue-500
-      mx-2;
+      text-green-400
+      mx-2
+      hover:text-green-500
+      transition-colors
+      duration-150;
   }
   pre {
     @apply
       rounded-md
-      font-mono
-      text-sm
+      font-mono;
+    code {
+      @apply
+      leading-none
+      text-xs;
+    }
   }
   ul {
     @apply
@@ -156,7 +205,8 @@ export default {
     }
   }
   code:not(pre code) {
-    @apply border rounded bg-gray-300 text-gray-800 px-2 py-0.5 mx-1 text-sm;
+    @apply border rounded bg-gray-100 text-gray-800 px-2 py-0.5 mx-1 text-sm;
   }
 }
+
 </style>

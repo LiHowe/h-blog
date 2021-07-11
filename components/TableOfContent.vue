@@ -5,9 +5,15 @@
         <svg-icon icon-class="toc" class="mr-1 inline-block" />
         <span>目录</span>
       </li>
-      <li v-if="toc && toc.length > 0" v-for="(item, index) in toc" :key="index" :class="getTailMargin(item.depth)">
-        <a :href="`#${item.id}`">{{ item.text }}</a>
-      </li>
+      <template v-if="toc && toc.length > 0">
+        <li
+          v-for="(item, index) in toc"
+          :key="index"
+          :class="getTailMargin(item.depth)"
+        >
+          <a :href="`#${item.id}`">{{ item.text }}</a>
+        </li>
+      </template>
       <li v-else>
         <span>没有内容</span>
       </li>
@@ -22,10 +28,14 @@ export default {
       type: Array,
       required: true,
       default: () => []
+    },
+    current: {
+      type: String,
+      default: ''
     }
   },
   methods: {
-    getTailMargin (depth) {
+    getTailMargin (depth, isCurrent) {
       const marginMapping = {
         1: 'ml-0 text-lg',
         2: 'ml-3 text-base',

@@ -34,14 +34,14 @@ export default {
       // { rel: 'stylesheet', href: '//fonts.cdnfonts.com/css/menlo'}
     ],
     script: [
-      { src: '//at.alicdn.com/t/font_2339230_yeswt2q11f.js' },
+      { src: '//at.alicdn.com/t/font_2339230_gyuxqs79usf.js' },
       { src: '~assets/js/main.js'}
     ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'normalize.css/normalize.css',
+    // 'normalize.css/normalize.css',
   ],
 
   // webfontloader: {
