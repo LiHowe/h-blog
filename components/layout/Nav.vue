@@ -24,3 +24,9 @@ export default {
   }
 }
 </script>
+<style lang="postcss" scoped>
+.nuxt-link-exact-active {
+  @apply text-green-400 font-bold
+}
+</style>
+
