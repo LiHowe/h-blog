@@ -39,8 +39,9 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         run: npm ci
 
+      # 暂时没有linter
       - name: Run linter 👀
         run: npm run lint
 
-      - name: Run tests 🧪
-        run: npm run test
+      # - name: Run tests 🧪
+      #   run: npm run test

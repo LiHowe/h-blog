@@ -1,17 +1,20 @@
 module.exports = {
+  mode: 'jit',
   purge: [
     './components/**/*.{vue,js}',
     './layouts/**/*.vue',
     './pages/**/*.vue',
-    './plugins/**/*.{js,ts}',
-    './nuxt.config.{js,ts}',
+    './plugins/**/*.{js}',
+    './nuxt.config.{js}',
+    './content/**/*.md'
   ],
-  darkMode: false, // or 'media' or 'class'
+  darkMode: 'class', // false or 'media' or 'class'
   theme: {
     extend: {},
   },
   variants: {
-    extend: {},
+    extend: {
+    },
   },
   plugins: [],
 }

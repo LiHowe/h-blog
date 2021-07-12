@@ -1,15 +1,18 @@
 const path = require('path')
 import i18n from './locales/index'
 import fs from 'fs'
+// import theme from '@nuxt/content-theme-docs'
 
 function getPaths (lang, type) {
   let initial = lang
   if (lang === 'zh') { initial = '' }
   return fs.readdirSync(path.resolve(__dirname, 'content', `${lang}/${type}`))
     .filter(filename => path.extname(filename) === '.md')
-    .map(filename => `${initial}/${type}/${path.parse(filename).name}`)
+    .map(filename => `${initial}/${path.parse(filename).name}`)
 }
 
+// TODO: theme会影响@的指向, 会多一级, 使用~~代替
+// TODO: 调研theme问题
 export default {
   // Target (https://go.nuxtjs.dev/config-target)
   target: 'static',
@@ -24,24 +27,22 @@ export default {
         content:
           'width=device-width, initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no',
       },
-      { hid: 'description', name: 'description', content: '' },
+      { hid: 'description', name: 'description', content: 'a blog of a web developer' },
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
+    link: [
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: 'stylesheet', href: '//fonts.cdnfonts.com/css/menlo'}
+    ],
     script: [
-      { src: '//at.alicdn.com/t/font_2339230_54yg7uau8jr.js' }
+      { src: '//at.alicdn.com/t/font_2339230_gyuxqs79usf.js' },
+      { src: '~assets/js/main.js'}
     ]
   },
 
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
-    'normalize.css/normalize.css',
-    '@/assets/css/main.scss',
-    '@/assets/css/article.scss'
+    // 'normalize.css/normalize.css',
   ],
-
-  styleResources: {
-    scss: ['@/assets/css/_variable.scss'],
-  },
 
   // webfontloader: {
   //   custom: {
@@ -51,9 +52,10 @@ export default {
   // },
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
+  // 注意: 使用theme的话这个引用~需要两个, 不然会报错找不到
   plugins: [
-    '~/plugins/globalLib',
-    '~/plugins/lazyload',
+    '@/plugins/globalLib',
+    '@/plugins/lazyload',
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -61,6 +63,7 @@ export default {
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
+    '@nuxtjs/color-mode',
     '@nuxtjs/tailwindcss',
   ],
 
@@ -72,7 +75,6 @@ export default {
     '@nuxtjs/pwa',
     // https://go.nuxtjs.dev/content
     '@nuxt/content',
-    '@nuxtjs/style-resources',
     // 'nuxt-webfontloader',
     ['nuxt-i18n', i18n]
   ],
@@ -86,12 +88,12 @@ export default {
       prism: {
         theme: 'prism-themes/themes/prism-material-oceanic.css'
       }
-    }
+    },
+    liveEdit: false
   },
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    transpile: ['animejs'],
     extend (config) {
       const rule = config.module.rules.find(r => r.test.toString() === '/\\.(png|jpe?g|gif|svg|webp)$/i')
       config.module.rules.splice(config.module.rules.indexOf(rule), 1) // 移除默认url-loader, 为了responsive-loader
@@ -112,14 +114,38 @@ export default {
           name: 'img/[name].[hash:7].[ext]'
         }
       })
-    }
+    },
+    // optimizeCSS: true,
+    babel: {
+      plugins: [
+        '@babel/plugin-proposal-optional-chaining'
+      ]
+    },
+    postcss: {
+      plugins: {
+        'postcss-nested': {}
+      }
+    },
   },
 
   generate: {
     routes: [
       '/zh', '404'
     ]
-    .concat(getPaths('zh', 'articles'))
-    .concat(getPaths('en', 'articles'))
+    .concat(getPaths('zh', 'code'))
+    .concat(getPaths('zh', 'world'))
+    .concat(getPaths('zh', 'life'))
+    .concat(getPaths('en', 'code'))
+    .concat(getPaths('en', 'world'))
+    .concat(getPaths('en', 'life'))
+  },
+
+  tailwindcss: {
+    exposeConfig: true,
+  },
+
+  colorMode: {
+    preference: 'light',
+    classSuffix: '', // 不添加这个的话会使用@nuxt/color-mode的默认后缀, -mode,导致不响应tailwind的darkmode
   }
 }

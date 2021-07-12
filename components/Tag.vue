@@ -1,5 +1,5 @@
 <template>
-  <span class="tag-container flex-box flex-box__center" :class="[{clickable}]">
+  <span class="tag-container" :class="[{clickable}]">
     <slot>
       <span class="tag-text" v-text="text"></span>
     </slot>
@@ -19,21 +19,12 @@ export default {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style lang="postcss" scoped>
 .tag-container {
-  font-size: .85rem;
-  background: #fafafa;
-  border-radius: 40px;
-  text-align: center;
-  padding: 0 0.7rem;
-  .tag-text {
-    color: $color-primary;
-  }
-  &.clickable {
-    cursor: pointer;
-  }
+  @apply
+  rounded-full flex justify-center items-center text-sm py-2 px-4 bg-gray-200 dark:bg-gray-600 h-7;
   & + .tag-container {
-    margin-left: 5px;
+    @apply ml-1
   }
 }
 </style>

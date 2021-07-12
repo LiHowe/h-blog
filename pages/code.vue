@@ -1,5 +1,5 @@
 <template>
-  <main class="container-code">
+  <main class="max-w-6xl mx-auto pt-16">
     <div class="card-list">
       <article-card :article="article" v-for="(article, index) in articles" :key="article.title + index" />
     </div>
@@ -8,9 +8,10 @@
 <script>
 export default {
   async asyncData({ app, $content, error, params }) {
-    const articles = await $content(`${app.i18n.locale}/articles`, params.slug)
+    const articles = await $content(`${app.i18n.locale}/code`, params.slug)
+      // .where({ wip: false })
       // .only(['title', 'tag', 'slug', 'description', 'createdAt', 'stick', 'img']) // 筛选markdown属性
-      .sortBy('createdAt', 'asc')
+      .sortBy('date', 'asc')
       .fetch()
       .catch(_ => {
         error({ statusCode: 404, message: 'Article not exist.' })

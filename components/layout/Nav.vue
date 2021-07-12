@@ -1,51 +1,32 @@
 <template>
-  <ul class="layout-nav">
-    <nuxt-link v-for="menu in menus" :key="menu.title" class="nav-item clickable" tag="li" :to="localePath(menu.to)">
+  <ul class="layout-nav flex text-gray-700 dark:text-gray-200">
+    <NuxtLink
+      v-for="menu in menus"
+      :key="menu.title"
+      class="nav-item cursor-pointer mr-10 text-base"
+      tag="li"
+      :to="localePath(menu.to)"
+    >
       <span>{{ $t(`menu.${menu.title}`) }}</span>
-    </nuxt-link>
+    </NuxtLink>
   </ul>
 </template>
 <script>
-import { menuList } from '@/utils/menu'
+import { menuList } from '~/utils/menu'
 
 export default {
   name: 'Navigation',
+  data: () => ({
+    menus: [],
+  }),
   created() {
     this.menus = menuList
   }
 }
 </script>
-<style lang="scss" scoped>
-.layout-nav {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  .nav-item {
-    display: inline-block;
-    padding: 0 2.5 * $header-padding;
-    height: 100%;
-    line-height: $header-line-height;
-    position: relative;
-    &::after {
-      position: absolute;
-      width: 50%;
-      height: 2px;
-      left: 25%;
-      bottom: 0;
-      border-radius: 4px;
-      background: linear-gradient(#000, #fff);
-      transform: scaleY(0);
-      transition: all .25s;
-    }
-    &:hover {
-      color: $color-primary;
-      &::after {
-        transform: scaleY(1);
-      }
-    }
-  }
-  .nuxt-link-exact-active {
-    font-weight: bold;
-  }
+<style lang="postcss" scoped>
+.nuxt-link-exact-active {
+  @apply text-green-400 font-bold
 }
 </style>
+

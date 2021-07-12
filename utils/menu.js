@@ -2,7 +2,7 @@ export const menuList = [
   {
     title: 'home',
     to: '/',
-    zh: '主页',
+    zh: 'Home',
     en: 'Home'
   },
   // {
@@ -14,21 +14,21 @@ export const menuList = [
   {
     title: 'aboutCode',
     to: '/code',
-    zh: '打工人日志',
+    zh: 'About Code',
     en: 'About Code'
   },
-  {
-    title: 'aboutWorld',
-    to: '/world',
-    zh: '大千世界',
-    en: 'About World'
-  },
-  {
-    title: 'aboutLife',
-    to: '/life',
-    zh: '柴米油盐',
-    en: 'About Life'
-  },
+  // {
+  //   title: 'aboutWorld',
+  //   to: '/world',
+  //   zh: '大千世界',
+  //   en: 'About World'
+  // },
+  // {
+  //   title: 'aboutLife',
+  //   to: '/life',
+  //   zh: '柴米油盐',
+  //   en: 'About Life'
+  // },
 ]
 
 export const generateMenuI18n = (lang) => menuList.reduce((init, menu) => {

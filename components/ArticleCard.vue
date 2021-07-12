@@ -1,29 +1,29 @@
 <template>
-  <div>
-    <nuxt-link class="article-card flex-box" :class="`card-${mode}`" tag="div" :to="localePath({ name: 'articles-slug', params: { slug: article.slug }})">
-      <div class="card-thumbnail">
-        <img class="card-thumbnail-img" :src="article.img" />
+  <nuxt-link
+    class="article-card"
+    tag="div"
+    :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: article.slug }, query: { t: article.category }}"
+  >
+    <div class="card-thumbnail flex-none w-32 h-32 flex items-center justify-center">
+      <img class="card-thumbnail-img object-cover w-full h-full rounded-sm" :src="article.thumbnail || '/images/thumbnail.jpg'" />
+    </div>
+    <div class="card-info relative py-3 px-5 w-full leading-loose text-sm">
+      <div class="font-semibold text-xl">
+        {{ article.title }}
       </div>
-      <div class="card-info">
-        <div class="card-title">
-          {{ article.title }}
-        </div>
-        <div class="card-desc">
-          {{ article.description }}
-        </div>
-        <div class="card-footer flex-box">
-          <Tag class="card-tag" v-for="(tag, i) in article.tag" :key="tag + i" :text="tag" />
-          <span class="card-create-time">
-            {{ createTime }}
-          </span>
-        </div>
+      <div class="font-normal">
+        {{ article.description }}
       </div>
-    </nuxt-link>
-  </div>
+      <div class="card-footer flex absolute bottom-3 left-0 px-5 w-full">
+        <Tag class="card-tag " v-for="(tag, i) in article.tags" :key="tag + i" :text="tag" />
+        <span class="card-create-time ml-auto">
+          {{ article.date }}
+        </span>
+      </div>
+    </div>
+  </nuxt-link>
 </template>
 <script>
-import day from 'dayjs'
-
 export default {
   name: 'ArticleCard',
   props: {
@@ -39,74 +39,19 @@ export default {
       },
       default: 'line'
     }
-  },
-  computed: {
-    createTime() {
-      return day(this.article.createAt).format('YYYY-MM-DD')
-    }
   }
 }
 </script>
-<style lang="scss" scoped>
-$card-padding: 0.85rem;
-$card-height: 7rem;
-$card-bg-color: #fff;
-$card-text-color: invert($card-bg-color, 70%);
-$thumbnail-size-rate: 0.9;
-$thumbnail-size: $card-height * $thumbnail-size-rate;
+<style lang="postcss" scoped>
 .article-card {
-  position: relative;
-  border-radius: 6px;
-  box-shadow: 0px 0 4px rgba(0, 0, 0, 0.25);
-  height: $card-height;
-  margin: $card-padding 0 $card-padding $thumbnail-size / 2 ;
-  background-color: rgba($card-bg-color, 0.7);
-  color: invert($card-bg-color);
-  transition: all .25s;
-  cursor: pointer;
+  @apply rounded-md flex shadow-md cursor-pointer mx-auto transform duration-500 transition overflow-hidden relative
+  dark:bg-gray-700 dark:bg-opacity-30 dark:text-gray-200 bg-gray-100 2xl:max-w-screen-xl opacity-90;
   &:hover {
-    background-color: $card-bg-color;
+    @apply scale-105 shadow-lg;
   }
-  .card {
-    &-thumbnail {
-      position: absolute;
-      top: $card-height * ((1 - $thumbnail-size-rate) / 2);
-      left: 0;
-      width: $thumbnail-size;
-      height: $thumbnail-size;
-      transform: translateX(-50%);
-      &-img {
-        height: 100%;
-        width: 100%;
-        border-radius: 6px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.25) ;
-      }
-    }
-    &-info {
-      position: relative;
-      width: 100%;
-      padding: $card-padding;
-      padding-left: $thumbnail-size / 2 + $card-padding;
-      color: $card-text-color;
-    }
-    &-title {
-      font-weight: bold;
-      max-height: 30%;
-      font-size: 1.5rem;
-      line-height: 1.5rem;
-      color: darken($card-text-color, 20%);
-    }
-    &-desc {
-      line-height: 1.5;
-      height: 50%;
-    }
-    &-footer {
-      max-height: 20%;
-      font-size: 14px;
-    }
-    &-create-time {
-      margin-left: auto;
-    }
-  }
+}
+.article-card + .article-card {
+  @apply
+    mt-5;
 }
 </style>

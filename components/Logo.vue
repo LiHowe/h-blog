@@ -1,6 +1,6 @@
 <template>
-  <div class="logo-container flex-box flex-box__inline flex-box__center">
-    <svg class="logo-svg" :class="[{fill}, {stroke}, mode]" width="74" height="75" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <div class="flex items-center justify-items-center dark:text-white text-black">
+    <svg class="h-10 fill-current" width="74" height="75" viewBox="0 0 74 75" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g filter="url(#filter0_d)">
         <path d="M48 30H26V10.4762L33.8003 2.6936C35.3117 1.18563 37.7409 1.13046 39.3192 2.56824L48 10.4762V30Z" />
         <path d="M26 38H48L48 57.5238L40.1997 65.3064C38.6883 66.8144 36.2591 66.8695 34.6808 65.4318L26 57.5238L26 38Z" />
@@ -27,74 +27,18 @@
         </filter>
       </defs>
     </svg>
-    <img v-if="showText" class="logo-text" :src="`/images/logo_text__${mode}.png`" alt="logo_text">
   </div>
 </template>
 <script>
 export default {
-  props: {
-    showText: {
-      type: Boolean,
-      default: true,
-    },
-    fill: {
-      type: Boolean,
-      default: true
-    },
-    stroke: {
-      type: Boolean,
-      default: false
-    },
-    mode: {
-      type: String,
-      default: 'light'
-    }
-  },
   mounted() {
     this.animeSvg()
   },
   methods: {
     animeSvg() {
-      this.$anime({
-        targets: '.logo-h-line',
-        opacity: [0, 1],
-        duration: 5 * 1000,
-        delay: (el, i) => i * 250,
-      })
+      // TODO: 添加LOGO动画
     },
   },
 }
 </script>
-<style lang="scss" scoped>
-$logo-size: 40px;
-.logo-container {
-  user-select: none;
-  height: $logo-size;
-  line-height: $logo-size;
-  .logo-svg {
-    width: $logo-size;
-    height: $logo-size;
-    margin-right: $logo-size / 10;
-    &.fill {
-      &.dark {
-        g > path {
-          fill: $color-primary;
-        }
-      }
-      &.light {
-        g > path {
-          fill: #fff;
-        }
-      }
-    }
-    &.stroke {
-      g > path {
-        stroke: $color-primary;
-      }
-    }
-  }
-  .logo-text {
-    height: $logo-size * 0.6;
-  }
-}
-</style>
+

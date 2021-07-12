@@ -1,52 +1,39 @@
 <template>
-  <div class="theme-switcher" :class="modeList[mode]" @click="changeMode">
-    <svg-icon :icon-class="modeList[mode]" :size="iconSize" class="switcher-icon" />
+  <div class="theme-switcher cursor-pointer" @click="changeMode">
+    <svg-icon :icon-class="modeData[mode].icon" :size="iconSize" class="switcher-icon" />
   </div>
 </template>
 <script>
 export default {
   name: "ThemeSwitcher",
   data: () => ({
-    iconSize: '26',
-    mode: 0,
-    modeList: ['sun', 'moon']
+    iconSize: '26px',
+    modeData: {
+      light: {
+        label: 'Light',
+        icon: 'sun',
+        value: 'light'
+      },
+      dark: {
+        label: 'Dark',
+        icon: 'moon',
+        value: 'dark'
+      }
+    }
   }),
+  computed: {
+    mode () {
+      const preference = this.$colorMode.preference
+      return preference === 'system' ? this.$colorMode.value : preference
+    }
+  },
   methods: {
     changeMode() {
-      this.mode = (this.mode + 1) % 2
+      this.$colorMode.preference = this.mode === 'light' ? 'dark' : 'light'
     }
-  }
+  },
 };
 </script>
-<style lang="scss" scoped>
-@keyframes rotate {
-  from {
-    transform: rotate(0);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-.theme-switcher {
-  position: relative;
-  height: $header-height - (2 * $header-padding);
-  width: $header-height - (2 * $header-padding);
-  display: inline-block;
-  border-bottom: 2px solid black;
-  cursor: pointer;
-  overflow: hidden;
-  .switcher-icon {
-    position: absolute;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    margin: auto;
-  }
-  &.sun {
-    .switcher-icon:hover {
-      animation: rotate linear infinite 1s;
-    }
-  }
-}
+<style lang="postcss" scoped>
+
 </style>

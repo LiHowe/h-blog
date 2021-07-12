@@ -1,19 +1,17 @@
 <template>
-  <div class="layout-footer">Copyright © LiHowe 2020-2021</div>
+  <div class="layout-footer py-2.5 px-2">Copyright © LiHowe 2020-2021</div>
 </template>
 <script>
 export default {}
 </script>
-<style lang="scss" scoped>
+<style scoped lang="postcss">
 .layout-footer {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: $footer-height;
-  width: 100vw;
-  text-align: center;
-  padding: 10px;
-  background: $color-footer;
-  color: #fff;
+  @apply
+    text-center
+    w-full
+    align-middle
+    text-sm
+    leading-loose
+    h-20;
 }
 </style>
