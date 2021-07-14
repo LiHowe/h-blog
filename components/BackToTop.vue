@@ -9,7 +9,7 @@ export default {
     window.addEventListener('scroll', this.scrollListener)
   },
   beforeDestroy () {
-    window.removeEventListener(this.scrollListener)
+    window.removeEventListener('scroll', this.scrollListener)
   },
   methods: {
     toTop () {

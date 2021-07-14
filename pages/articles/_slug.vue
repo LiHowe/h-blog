@@ -48,6 +48,9 @@ export default {
       article
     }
   },
+  data: () => ({
+    BTT: null
+  }),
   mounted () {
     setTimeout(() => {
       // 获取全部代码块
@@ -63,8 +66,12 @@ export default {
     setTimeout(() => {
       const BTT = Vue.extend(BackToTop)
       const bttEl = new BTT().$mount()
+      this.BTT = bttEl
       document.body.appendChild(bttEl.$el)
     }, 100)
+  },
+  beforeDestroy () {
+    this.BTT.$destroy()
   },
   methods: {
     // 获取高亮代码块的语言
