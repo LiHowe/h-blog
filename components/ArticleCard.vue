@@ -5,7 +5,7 @@
     :to="{ name: `articles-slug___${$i18n.locale}`, params: { slug: article.slug }, query: { t: article.category }}"
   >
     <div class="card-thumbnail flex-none w-32 h-32 flex items-center justify-center">
-      <img class="card-thumbnail-img object-cover w-full h-full rounded-sm" :src="article.thumbnail || '/images/thumbnail.jpg'" />
+      <img class="card-thumbnail-img object-contain w-full h-full rounded-sm" ref="img" :src="article.thumbnail || '/images/thumbnail.jpg'"/>
     </div>
     <div class="card-info relative py-3 px-5 w-full leading-loose text-sm">
       <div class="font-semibold text-xl">
@@ -20,6 +20,9 @@
           {{ article.date }}
         </span>
       </div>
+    </div>
+    <div v-if="article.wip" class="absolute right-0 top-0 w-12 leading-snug text-center rounded bg-green-600 text-gray-200">
+      WIP
     </div>
   </nuxt-link>
 </template>
@@ -39,6 +42,9 @@ export default {
       },
       default: 'line'
     }
+  },
+  beforeMount () {
+    this.$refs.img.addEventListener('load')
   }
 }
 </script>
@@ -47,7 +53,7 @@ export default {
   @apply rounded-md flex shadow-md cursor-pointer mx-auto transform duration-500 transition overflow-hidden relative
   dark:bg-gray-700 dark:bg-opacity-30 dark:text-gray-200 bg-gray-100 2xl:max-w-screen-xl opacity-90;
   &:hover {
-    @apply scale-105 shadow-lg;
+    @apply shadow-green;
   }
 }
 .article-card + .article-card {
