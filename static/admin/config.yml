@@ -7,6 +7,10 @@ tags: &tags
   - "Vue"
   - "React"
   - "Angular"
+  - "BackEnd"
+  - "NodeJS"
+  - "npm"
+  - "vite"
 
 # 本地开发
 local_backend: true
@@ -55,7 +59,8 @@ collections:
     # default?: 可选, 设置默认值
     - {label: "category", name: "category", widget: 'select', options: [code, life, world], default: "code"}
     - {label: "Layout", name: "layout", widget: "hidden", default: "blog"}
-    - {label: "Language", name: 'language', widget: 'select', options: ['zh', 'en'], default: 'zh'}
+    # - {label: "Language", name: 'language', widget: 'select', options: ['zh', 'en'], default: 'zh'}
+    - {label: "Language", name: 'language', widget: 'hidden', default: 'zh'}
     - {label: "Title", name: "title", widget: "string"}
     - {label: "Publish Date", name: "date", widget: "datetime", format: "MM/DD-YYYY HH:mm" }
     - {label: "Cover Image", name: "coverImage", widget: "image", default: 'https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1280&q=80'}
@@ -63,4 +68,5 @@ collections:
     - {label: "Tags", name: "tags", widget: "select", options: *tags, multiple: true}
     - {label: "Description", name: 'description', widget: 'text'}
     - {label: "Stick", name: 'stick', widget: 'boolean', default: false}
+    - {label: "WIP", name: 'stick', widget: 'boolean', default: false}
     - {label: "Body", name: "body", widget: "markdown"}
